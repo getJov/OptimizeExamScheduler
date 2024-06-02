@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     logoutBtn.addEventListener('click', () => {
-        window.location.href = '/';
+        window.location.href = "/logout";
     });
 
     // Toggle profile info on button click
