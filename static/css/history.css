@@ -74,8 +74,18 @@ td {
   overflow-y: auto;
 }
 
+#right-side > div {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap as needed */
+}
+
+#searchInput {
+  flex: 1; /* Make the input take up remaining space */
+}
+
 .btn-print {
-  background-color: #6A737B;
+  background-color: #2B8700;
   color: white;
 }
 

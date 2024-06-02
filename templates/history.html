@@ -10,6 +10,7 @@
 
     </style>
 </head>
+
 <body>
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -26,13 +27,13 @@
                     <div class="col-md-12">
                         <div class="table-container container-fluid">
                             <div style="margin-left: 0px; margin-bottom: 20px;">
-                                <h3>Exam Schedule</h3>
+                                <h3 id="titleForExam">{{ exam_title }}</h3>
                             </div>
                             <div class="header mb-3">
                                 <div class="dropdown dropdown-secondary">
                                     <button class="btn btn-subject" type="button" id="dropdownMenuButton1"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="me-2" id="dropdownButtonText">TIME OF THE EXAM</span>
+                                        <span class="me-2" id="dropdownButtonText">TIME OF THE EXAM | Search bar</span>
                                         <span class="dropdown-toggle"></span>
                                     </button>
                                     <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
@@ -44,10 +45,20 @@
                                         <li><a class="dropdown-item" href="#">ROOM FOR EXAM</a></li>
                                         <li><a class="dropdown-item" href="#">PROCTOR</a></li>
                                     </ul>
-                                    
+
                                 </div>
-                                <div>
-                                    <button class="btn btn-print me-3">Print</button>
+                                <div id="rigth-side">
+                                    <div>
+                                        <input type="text" id="searchInput" placeholder="Search...">
+                                        <button onclick="performSearch()">Search</button>
+                                        <button class="btn btn-print me-3">Print</button>
+                                    </div>
+                                    <div id="searchResults">
+                                        <table id="resultsTable" border="1" style="width:100%; margin-top:20px;">
+                                            <thead id="resultsTableHead" ></thead>
+                                            <tbody id="resultsTableBody"></tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
@@ -67,18 +78,12 @@
                                     <tbody id="tableBody"></tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
             <!-- table content end -->
         </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
     </div>
     <!-- /#page-content-wrapper -->
     <!-- </div> -->
@@ -110,6 +115,59 @@
                     });
                 });
         });
+    </script>
+
+    <script>
+        function performSearch() {
+            var query = document.getElementById("searchInput").value;
+            fetch('/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: query }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                var tableHead = document.getElementById("resultsTableHead");
+                var tableBody = document.getElementById("resultsTableBody");
+                
+                // Clear previous results
+                tableHead.innerHTML = '';
+                tableBody.innerHTML = '';
+
+                if (data.results.length > 0) {
+                    // Add table headers
+                    var headers = data.results[0];
+                    var headerRow = document.createElement('tr');
+                    headers.forEach(header => {
+                        var th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+                    tableHead.appendChild(headerRow);
+
+                    // Add table rows
+                    data.results.slice(1).forEach(row => {
+                        var tr = document.createElement('tr');
+                        row.forEach(cell => {
+                            var td = document.createElement('td');
+                            td.textContent = cell;
+                            tr.appendChild(td);
+                        });
+                        tableBody.appendChild(tr);
+                    });
+                } else {
+                    var noResultsRow = document.createElement('tr');
+                    var noResultsCell = document.createElement('td');
+                    noResultsCell.textContent = 'No results found';
+                    noResultsCell.colSpan = headers.length;
+                    noResultsRow.appendChild(noResultsCell);
+                    tableBody.appendChild(noResultsRow);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
     </script>
 </body>
 

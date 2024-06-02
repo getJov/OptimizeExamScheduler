@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response
 import pandas as pd
-from backend.py.checkMissingData import check_missing_data
 import csv
 import io
+
+from backend.py.checkMissingData import check_missing_data
+from backend.py.generateExamSched import titleForExam
 
 app = Flask(__name__)
 
@@ -42,7 +44,8 @@ def show_result():
 
 @app.route('/history')
 def show_history():
-    return render_template('history.html')
+    exam_title = titleForExam()
+    return render_template('history.html', exam_title=exam_title)
 
 @app.route('/get-csv')
 def get_csv():
@@ -65,6 +68,23 @@ def get_csv():
     response.headers["Content-Disposition"] = "attachment; filename=data.csv"
     response.headers["Content-type"] = "text/csv"
     return response
+
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.json.get('query', '')
+    csv_path = './Final Exam2ndSemS.Y2023-2024.csv'
+    results = []
+
+    with open(csv_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        headers = next(reader)  # Read the headers
+        results.append(headers)  # Add headers to results
+
+        for row in reader:
+            if query.lower() in ','.join(row).lower():
+                results.append(row)
+    
+    return jsonify({'results': results})
 
 if __name__ == '__main__':
     app.run(debug=True)
