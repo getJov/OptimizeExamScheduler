@@ -22,31 +22,12 @@
                 {% include 'includes/sidebar.html' %}
             </div>
             <!-- table -->
-            <div class="table-containers container-fluid">
-                <div class="row my-5">
-                    <div class="col-md-12">
+            <div class="table-containers container-fluid px-5 py-5">
                         <div class="table-container container-fluid">
                             <div style="margin-left: 0px; margin-bottom: 20px;">
                                 <h3 id="titleForExam">{{ exam_title }}</h3>
                             </div>
                             <div class="header mb-3">
-                                <div class="dropdown dropdown-secondary">
-                                    <button class="btn btn-subject" type="button" id="dropdownMenuButton1"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="me-2" id="dropdownButtonText">TIME OF THE EXAM | Search bar</span>
-                                        <span class="dropdown-toggle"></span>
-                                    </button>
-                                    <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">TIME OF THE EXAM</a></li>
-                                        <li><a class="dropdown-item" href="#">SUBJECT</a></li>
-                                        <li><a class="dropdown-item" href="#">YEAR/COURSE/SECTION</a></li>
-                                        <li><a class="dropdown-item" href="#">SUBJECT TIME SCHEDULE</a></li>
-                                        <li><a class="dropdown-item" href="#">INSTRUCTOR</a></li>
-                                        <li><a class="dropdown-item" href="#">ROOM FOR EXAM</a></li>
-                                        <li><a class="dropdown-item" href="#">PROCTOR</a></li>
-                                    </ul>
-
-                                </div>
                                 <div id="rigth-side">
                                     <div>
                                         <input type="text" id="searchInput" placeholder="Search...">
@@ -56,7 +37,7 @@
                                     <div id="searchResults">
                                         <table id="resultsTable" border="1" style="width:100%; margin-top:20px;">
                                             <thead id="resultsTableHead" ></thead>
-                                            <tbody id="resultsTableBody"></tbody>
+                                            <!-- <tbody id="resultsTableBody"></tbody> -->
                                         </table>
                                     </div>
                                 </div>
@@ -75,24 +56,15 @@
                                             <th>PROCTOR</th>
                                         </tr>
                                     </thead>
+                                    <tbody id="resultsTableBody"></tbody>
                                     <tbody id="tableBody"></tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- table content end -->
+                
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
-    <!-- </div> -->
 
-    <!-- Bootstrap JavaScript and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             fetch('/get-csv')
