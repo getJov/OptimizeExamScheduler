@@ -1,0 +1,6 @@
+1. room, size
+2. course, year, set, num of students
+3. subject, code, instructor
+4. time frame
+5. start, end date
+6. subject, set

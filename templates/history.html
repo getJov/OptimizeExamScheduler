@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+    <link rel="stylesheet" type="text/css" href="../static/css/history.css">
+    <title>History</title>
+    <script src="../static/js/historyscript.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <!-- navbar -->
+        {% include 'includes/nav.html' %}
+
+        <div class="content">
+            <div class="sidebar-container">
+                {% include 'includes/sidebar.html' %}
+            </div>
+            <!-- table -->
+            <div class="table-containers container-fluid">
+                <div class="row my-5">
+                    <div class="col-md-12">
+                        <div class="table-container container-fluid">
+                            <div style="margin-left: 0px; margin-bottom: 20px;">
+                                <h3>Exam Schedule</h3>
+                            </div>
+                            <div class="header mb-3">
+                                <div class="dropdown dropdown-secondary">
+                                    <button class="btn btn-subject" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="me-2" id="dropdownButtonText">TIME OF THE EXAM</span>
+                                        <span class="dropdown-toggle"></span>
+                                    </button>
+                                    <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">TIME OF THE EXAM</a></li>
+                                        <li><a class="dropdown-item" href="#">SUBJECT</a></li>
+                                        <li><a class="dropdown-item" href="#">YEAR/COURSE/SECTION</a></li>
+                                        <li><a class="dropdown-item" href="#">SUBJECT TIME SCHEDULE</a></li>
+                                        <li><a class="dropdown-item" href="#">INSTRUCTOR</a></li>
+                                        <li><a class="dropdown-item" href="#">ROOM FOR EXAM</a></li>
+                                        <li><a class="dropdown-item" href="#">PROCTOR</a></li>
+                                    </ul>
+                                    
+                                </div>
+                                <div>
+                                    <button class="btn btn-print me-3">Print</button>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #2B8700; color: white;">
+                                            <th>TIME OF THE EXAM</th>
+                                            <th>SUBJECT</th>
+                                            <th>YEAR/COURSE/SECTION</th>
+                                            <th>SUBJECT TIME SCHEDULE</th>
+                                            <th>INSTRUCTOR</th>
+                                            <th>ROOM FOR EXAM</th>
+                                            <th>PROCTOR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody"></tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table content end -->
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    <!-- </div> -->
+
+    <!-- Bootstrap JavaScript and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('/get-csv')
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split('\n');
+                    let tableBody = document.getElementById('tableBody');
+                    tableBody.innerHTML = '';  // Clear existing table rows
+                    rows.forEach(row => {
+                        if (row.trim()) {
+                            let tr = document.createElement('tr');
+                            const columns = row.split(',').slice(0, 7);  // Get only the first 7 columns
+                            columns.forEach(col => {
+                                let td = document.createElement('td');
+                                td.innerText = col;
+                                tr.appendChild(td);
+                            });
+                            tableBody.appendChild(tr);
+                        }
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>

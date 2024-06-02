@@ -1,0 +1,18 @@
+Room/ExamVenue,Size,Courses,Year,Set,NumberOfStudents,Proctor/Staff,TimeFrame,StartDate,EndDate
+AB-R1,30 students,,1,a,30,jov,2hrs,,"March 5, 2024"
+AB-R2,30 students,BSIT,,b,30,eve,,"March 5, 2024",
+AB-R2,30 students,BSIT,1,,30,yap,,,
+AB-R4,30 students,BSIT,1,d,30,jen,,,
+AB-R5,40 students,BSIT,2,a,30,jen,,,
+AB-R6,40 students,BSIT,2,b,30,,,,
+AB-R7,40 students,BSIT,2,,30,,,,
+AB-R8,40 students,BSIT,2,d,30,,,,
+AB-R9,40 students,BSIT,3,a,30,,,,
+IC-R1,30 students,BSIT,3,b,40,,,,
+IC-R3,30 students,BSIT,3,c,40,,,,
+IC-R4,30 students,BSIT,3,d,40,,,,
+IC-R5,30 students,BSIT,4,a,40,,,,
+Gym 1,90 students,BSIT,4,b,40,,,,
+Gym 2,60 students,BSIT,4,c,40,,,,
+Gym 3,61 students,BSIT,4,d,40,,,,
+Gym 4,61 students,BSIS,1,a,40,,,,

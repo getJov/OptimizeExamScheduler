@@ -1,0 +1,14 @@
+drag and file button upload
+error message, 1 csv file only, csv file only
+cancel button
+
+05-26-24
+pip install pandas
+
+idea for checking data from a csv file is;
+1. room/exam venue should have size
+2. course, year, set, number of students should has data
+3. subject, code, instructor should also have data
+4. time frame should have data
+5. it should have start and end date
+6. subject and set should have data

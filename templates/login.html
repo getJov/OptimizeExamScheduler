@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'includes/head.html' %}
+    <title>DNSC - Optimize Exam Scheduler</title>
+</head>
+<body>
+    <section class="background-section">
+        <div class="left-side">
+            <div class="left-side-container">
+                <img src="./static/images/LEFT SIDE.svg" alt="">
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="signin-container">
+                <h6>Sign in</h6>
+                <div class="login-identifyProviders">
+                    <input type="text" class="input" placeholder="Username" id="username">
+                    <input type="password" class="input" placeholder="Password" id="password">
+                    <button class="btn btn-sm" id="login-button">Log in</button>
+                    <a href="#" id="lost-password">Lost password?</a>
+                </div>
+                <hr>
+                <div class="login-identifyProviders">
+                    <p class="p-msg-user-account">Sign in using your DNSC Account</p>
+                    <button class="btn btn-sm btn-google-ms" id="google-account-btn">
+                        <img src="../static/images/google-icon.svg" alt="" class="icons-google">
+                        DNSC Google
+                    </button>
+                    <!-- <button class="btn btn-sm btn-google-ms">
+                        <img src="../static/images/microsoft-icon.svg" alt="" class="icons-ms">
+                        DNSC Microsoft
+                    </button> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include the login.js script -->
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

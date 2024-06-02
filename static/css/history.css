@@ -1,0 +1,134 @@
+:root {
+  --main-bg-color: #009d63;
+  --main-text-color: #000000;
+  --second-text-color: #bbbec5;
+  --second-bg-color: #c1efde;
+
+}
+
+@media (min-width: 991px) {
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #2B8700;
+    visibility: hidden;
+    transition: width 0.3s ease-in-out;
+  }
+
+  .nav-link:hover::before,
+  .nav-link.active::before {
+    width: 100%;
+    visibility: visible;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-containers {
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* table content */
+.table-container {
+  /* margin: 20px; */
+  margin-right: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 100vw;
+  height: calc(100vh - 10rem);
+  /* width: calc(100vw - 10rem); */
+  }
+
+th,
+td {
+  white-space: nowrap;
+}
+
+.table {
+  border-color: #6A737B;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-responsive {
+  height: calc(100vh - 20rem);
+  width: 100%;
+  /* width: calc(100vw - 12rem); */
+  /* height: calc(100vh - 7.5rem); */
+  /* max-width: 100vw; */
+  overflow-y: auto;
+}
+
+.btn-print {
+  background-color: #6A737B;
+  color: white;
+}
+
+.btn-print:hover {
+  background-color: #1F6100;
+  color: white;
+}
+
+.btn-subject {
+  color: #6A737B;
+  border: 1px solid #ADADAD;
+  border-radius: 10px;
+  transition: border-color 0.3s;
+  /* Adding transition for smoother effect */
+}
+
+.btn-subject:hover {
+  background-color: #6A737B;
+  color: white;
+  border-color: #6A737B;
+  /* Change border color on hover */
+}
+
+.btn-subject:focus {
+  background-color: #6A737B;
+  color: white;
+  border-color: transparent;
+  /* Remove border on focus */
+  outline: 1px solid #6A737B;
+  /* Add outline on focus */
+}
+
+.btn-subject:active,
+.btn-subject:focus.active {
+  background-color: #6A737B;
+  /* Maintain background color when clicked or focused */
+  border-color: #6A737B;
+  /* Maintain border color when clicked or focused */
+}
+
+
+.dropdown-toggle {
+  margin-left: 30px;
+}
+
+.dropdown-menu {
+  background-color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #2B8700;
+  color: white;
+  /* Text color white */
+}

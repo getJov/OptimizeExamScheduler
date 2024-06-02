@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+    <title>History</title>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar-color" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+                History
+            </div>
+            <div class="list-group list-group-flush my-3">
+               
+                <a href="./history.html" class="list-group-item list-group-item-action mb-3">
+                    <span style="font-size: 12px; font-weight: bold;">AY 2022-2023</span><br>
+                    <span style="font-weight: bold;">2nd Sem Final Exam Schedules</span></a>
+
+                <a href="#" class="list-group-item list-group-item-action active">
+                    <span style="font-size: 12px; font-weight: bold;">AY 2022-2023</span><br>
+                    <span style="font-weight: bold;">2nd Sem Mid-Term Exam Schedule</span></a>
+            </div>
+        </div>
+      
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <!-- navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left fs-3 primary-text mt-2 me-3" id="menu-toggle"></i>
+                        <a class="navbar-brand" href="{{ url_for('home') }}">
+                            <img src="./OES LOGO.svg" alt="OES Logo" width="80" height="50" 
+                            class="d-inline-block align-text-center" id="logo">
+                            <span class="title">Optimize Exam Scheduler</span>
+                        </a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('home') }}">Generate Schedule</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for('history') }}">History</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+             <!-- table -->
+             <div class="container-fluid px-4">
+                <div class="row my-5">
+                    <div class="col-md-12">
+                        <div class="table-container">
+                            <div style="margin-left: 0px; margin-bottom: 20px;">
+                                <h3>Exam Schedule</h3>
+                            </div>
+                            <div class="header mb-3">
+                                <div class="dropdown dropdown-secondary">
+                                    <button class="btn btn-subject" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span class="me-2" id="dropdownButtonText">Day</span>
+                                        <span class="dropdown-toggle"></span>
+                                    </button>
+                                    <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('day', 'Day')">Day</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('date', 'Date')">Date</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('time', 'Time')">Time</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('subject', 'Subject')">Subject</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('course', 'COURSE YEAR &amp; SET')">COURSE YEAR &amp; SET</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('room', 'Room')">Room</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="changeTableContent('proctor', 'Proctor')">Proctor</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <button class="btn btn-print ml-2">Print</button>
+                                </div>
+                            </div>
+            
+                            <!-- Day content -->
+                            <div class="table-responsive" id="day" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>Day</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Subject</th>
+                                            <th>Course Year Set</th>
+                                            <th>Room</th>
+                                            <th>Proctor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>March 20, 2023</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>BSIT3A</td>
+                                            <td>COMLAB-1</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Date content -->
+                            <div class="table-responsive" id="date" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>DATE</th>
+                                            <th>DAY</th>
+                                            <th>Time</th>
+                                            <th>Subject</th>
+                                            <th>Course Year Set</th>
+                                            <th>Room</th>
+                                            <th>Proctor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>March 3, 2023</td>
+                                            <td>1</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>BSIT3A</td>
+                                            <td>COMLAB-1</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Time content -->
+                            <div class="table-responsive" id="time" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>TIME</th>
+                                            <th>DATE</th>
+                                            <th>DAY</th>
+                                            <th>Subject</th>
+                                            <th>Course Year Set</th>
+                                            <th>Room</th>
+                                            <th>Proctor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>March 3, 2023</td>
+                                            <td>1</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>BSIT3A</td>
+                                            <td>COMLAB-1</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Subject content -->
+                            <div class="table-responsive" id="subject" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>SUBJECT</th>
+                                            <th>DAY</th>
+                                            <th>DATE</th>
+                                            <th>TIME</th>
+                                            <th>Course Year Set</th>
+                                            <th>Room</th>
+                                            <th>Proctor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>1</td>
+                                            <td>March 3, 2023</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>BSIT3A</td>
+                                            <td>COMLAB-1</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Course Year & Set content -->
+                            <div class="table-responsive" id="course" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>COURSE YEAR &amp; SET</th>
+                                            <th>DAY</th>
+                                            <th>DATE</th>
+                                            <th>TIME</th>
+                                            <th>SUBJECT</th>
+                                            <th>Room</th>
+                                            <th>Proctor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BSIT3A</td>
+                                            <td>1</td>
+                                            <td>March 3, 2023</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>COMLAB-1</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Room content -->
+                            <div class="table-responsive" id="room" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>ROOM</th>
+                                            <th>DAY</th>
+                                            <th>DATE</th>
+                                            <th>TIME</th>
+                                            <th>SUBJECT</th>
+                                            <th>COURSE YEAR &amp; SET</th>
+                                            <th>Proctor</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>COMLAB-1</td>
+                                            <td>1</td>
+                                            <td>March 3, 2023</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>BSIT3A</td>
+                                            <td>A. CASIPE</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+            
+                            <!-- Proctor content -->
+                            <div class="table-responsive" id="proctor" style="display: none;">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-dark">
+                                        <tr style="background-color: #8BC34A;">
+                                            <th>PROCTOR</th>
+                                            <th>DAY</th>
+                                            <th>DATE</th>
+                                            <th>TIME</th>
+                                            <th>SUBJECT</th>
+                                            <th>COURSE YEAR &amp; SET</th>
+                                            <th>ROOM</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A. CASIPE</td>
+                                            <td>1</td>
+                                            <td>March 3, 2023</td>
+                                            <td>10:00 am - 12:00 pm</td>
+                                            <td>ITSE-4: Ethnography</td>
+                                            <td>BSIT3A</td>
+                                            <td>COMLAB-1</td>
+                                        </tr>
+                                        <!-- Add more rows as needed -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table content end -->
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+
+    <!-- Bootstrap JavaScript and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/historyscript.js"></script>
+</body>
+    
+</html>
