@@ -1,5 +1,10 @@
-from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response
+from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response, session
 import pandas as pd
+from backend.py.checkMissingData import check_missing_data
+from flask import make_response
+from flask_mysqldb import MySQL
+from flask_bcrypt import Bcrypt
+import mysql.connector
 import csv
 import io
 
@@ -7,10 +12,81 @@ from backend.py.checkMissingData import check_missing_data
 from backend.py.generateExamSched import titleForExam
 
 app = Flask(__name__)
+app.secret_key = 'oes'
+bcrypt = Bcrypt(app)
 
+# MySQL configurations
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '',
+    'database': 'oes'
+}
+
+mysql = mysql.connector.connect(**db_config)
+
+# loginPage / Home
 @app.route('/')
 def home():
-    return render_template("login.html")
+    if 'username' in session:
+        return f"Hello, {session['username']}! You are logged in as {session['role']}."
+    return redirect(url_for('login'))
+
+
+# login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM User WHERE Username = %s', (username,))
+        user = cursor.fetchone()
+
+        if user and bcrypt.check_password_hash(user['PasswordHash'], password):
+            session['username'] = user['Username']
+            session['role'] = user['RoleID']
+            if user['RoleID'] == 1:
+                return redirect(url_for('superadmin'))
+            elif user['RoleID'] == 2:
+                return redirect(url_for('admin'))
+            elif user['RoleID'] == 3:
+                return redirect(url_for('faculty'))
+            else:
+                return redirect(url_for('home'))
+        else:
+            error = "Invalid credentials, please try again."
+    return render_template('login.html', error=error)
+
+# register
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        role = request.form['role']
+
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        cursor = mysql.cursor()
+        try:
+            cursor.execute('INSERT INTO User (Username, PasswordHash, Email, firstName, lastName, RoleID, CreatedAt, UpdatedAt) VALUES (%s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)',
+                           (username, hashed_password, email, firstName, lastName, role))
+            mysql.commit()
+        except mysql.connector.Error as err:
+            error = f"Error: {err}"
+        finally:
+            cursor.close()
+
+        if not error:
+            return redirect(url_for('superadmin'))
+    
+    return render_template('superadmin.html', error=error)
 
 @app.route('/index.html')
 def index():
@@ -85,6 +161,39 @@ def search():
                 results.append(row)
     
     return jsonify({'results': results})
+
+# superadmin
+@app.route('/superadmin')
+def superadmin():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('superadmin.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+# admin
+@app.route('/admin')
+def admin():
+    if 'username' in session and session['role'] == 2:
+        username = session['username']
+        return render_template('admin.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+# faculty
+@app.route('/faculty')
+def faculty():
+    if 'username' in session and session['role'] == 3:
+        username = session['username']
+        return render_template('faculty.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+# logout
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
