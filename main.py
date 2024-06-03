@@ -1,8 +1,5 @@
 from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response, session
-import pandas as pd
-from backend.py.checkMissingData import check_missing_data
 from flask import make_response
-from flask_mysqldb import MySQL
 from flask_bcrypt import Bcrypt
 import mysql.connector
 import csv
