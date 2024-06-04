@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebarHistory = document.getElementById('sidebar-history');
     const arrowRight = document.getElementById('arrow-right');
     const arrowLeft = document.getElementById('arrow-left');
+    const content = document.getElementById('content');
 
 
     logoutBtn.addEventListener('click', () => {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
             arrowLeft.style.display = 'block';
             sidebarBtn.style.width = '296px';
             sidebarBtn.style.gap = '196px';
+            content.style.width = '100vw - 296px';
         } else {
             sidebarHistory.style.display = 'none';
             arrowRight.style.display = 'block';
