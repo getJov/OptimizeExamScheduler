@@ -1,69 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% include 'includes/head.html' %}
-    <title>SuperAdmin - Optimize Exam Scheduler</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Admin - Optimize Exam Scheduler</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/historycopyforsuperadmin.css">
+    <link rel="stylesheet" href="./static/css/stylescopyforsuperadmin.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- calendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
+
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- navbar -->
-     <!-- navbar -->
-     {% include 'includes/nav.html' %}
+    <!-- Navbar -->
+    {% include 'includes/superadminNav.html' %}
     
-    <section>
-        <div class="container text-center mt-5 fs-5 bolder">
-            Hello {{ username }}
-        </div>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="content" style="background-color: #F2F3F7;">
 
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6 mb-5">
-                    <h2 class="text-center">Register</h2>
-                    <form method="POST" action="{{ url_for('register') }}">
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">First name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Last name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName">
-                        </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select class="form-control" id="role" name="role" required>
-                                <option value="1">Superadmin</option>
-                                <option value="2">Admin</option>
-                                <option value="3">Faculty</option>
-                                <!-- Add more options as needed -->
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                    </form>
-                    {% if error %}
-                        <div class="alert alert-danger mt-3" role="alert">
-                            {{ error }}
-                        </div>
-                    {% endif %}
+                <div class="sidebar-container">
+                    {% include 'includes/superadminsidebar.html' %}
                 </div>
-            </div>
-        </div>
-        
-    </section>
 
+                        <!-- Table -->
+                        <div class="table-containers container-fluid px-5 py-4 mb-4">
+                            <header class="container-fluid fs-2 fw-bold mb-4">
+                                Dashboard
+                            </header>
+                            <div class="table-container container-fluid">    
+                                <div class="container-fluid">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-12">
+                                                <div class="card-body mb-5">
+                                                    <div class="container-fluid mt-5">
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <span class="text-start fs-5 fw-bold">Timeline</span>
+                                                        </div>
+                                                        <hr class="border-bottom border-1 border-secondary">
+                                                        <div class="table-responsive-supad">
+                                                            <div id="drop-area" class="responsive-container mt-3 mb-3">
+                                                                <i class="fa-solid fa-calendar pe-2 fa-2xl"></i>
+                                                                <img src="" alt="" class="responsive-image"> <br><br>
+                                                                <p class="responsive-text" id="drop-area-text text-secondary">You have no notifications & Schedule</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chat-wrapper">
+                                                            <div id="calendar">
+                                                                <!-- calendar content -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                    </div>            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8S3gVXEjIo607E2FfewJw4tkP2ciKE6hFfFkZ" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar:{
+                left: 'dayGridMonth,timeGridWeek,timeGridDay',
+                center: 'title',
+            }
+        })
+        
+        calendar.render()
+        })
+
+    </script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+    <title>OES | Missing Data</title>
+    <!-- <script src="{{ url_for('static', filename='checkMissingData.js') }}"></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/scripts.js') }}"></script> -->
+</head>
+
+<body>
+    {% include 'includes/nav.html' %}
+
+    <div class="content">
+        <div class="sidebar-container">
+            {% include 'includes/sidebar.html' %}
+        </div>
+
+        <div class="container mt-5 mb-5 rounded-3 p-5 container-fluid" id="missngData-container">
+            <h6> <strong> Missing Data </strong></h6>
+            <div class="buttons">
+                <!-- <button class="btn btn-sm generate-sched-btn" id="addRow">Add Row</button>
+                <button class="btn btn-sm generate-sched-btn" id="addColumn">Add Column</button> -->
+            </div>
+
+            {% include 'checkMissingData.html' %}
+
+            <button class="btn btn-sm generate-sched-btn" id="generateSchedBtn">Generate Schecdule</button>
+                <!-- <button class="btn btn-sm generate-sched-btn" id="generateSchedBtn"
+                data-url="{{ url_for('show_history') }}">Generate Schecdule</button> -->
+        </div>
+    </div>
+
+    {% include 'includes/progressBarCard.html' %}
+
+</body>
+
+</html>

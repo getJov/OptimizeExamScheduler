@@ -1,0 +1,141 @@
+:root {
+  --main-bg-color: #009d63;
+  --main-text-color: #000000;
+  --second-text-color: #bbbec5;
+  --second-bg-color: #c1efde;
+
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-containers {
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* table content */
+.table-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 100vw;
+  height: 100%;
+}
+
+.table-container-register {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 60vw;
+  height: 100%;
+}
+
+#table-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #2B8700;
+  color: white;
+}
+
+th,
+td {
+  white-space: nowrap;
+}
+
+.table {
+  border-color: #eee;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-responsive-supad {
+  height: calc(70vh - 22rem);
+  width: 100%;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.table-responsive {
+  height: calc(100vh - 24rem);
+  width: 100%;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+#right-side>div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+#searchInput {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 4px;
+  padding-left: 10px;
+  font-size: small;
+  transition: border-color 0.3s ease;
+  outline: none; 
+}
+
+#searchInput:focus {
+  border: 2px solid #2B8700;
+  /* border-color: #2B8700; */
+}
+
+#searchbtn {
+  background-color: #2B8700;
+  border: none;
+}
+
+#searchbtn {
+  margin-left: -1px;
+  /* This removes the gap between the input and the button */
+}
+
+#searchbtn:first-of-type {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btn-print {
+  margin-left: 20px;
+  /* Adjust this value as needed */
+}
+
+#searchInput {
+  flex: 1;
+}
+
+#searchInput::placeholder {
+  font-size: small;
+}
+
+.btn-print {
+  background-color: #2B8700;
+  color: white;
+}
+
+.btn-print:hover {
+  background-color: #1F6100;
+  color: white;
+}

@@ -14,17 +14,13 @@
         <div class="right-side">
             <div class="signin-container">
                 <h6>Sign in</h6>
-                {% if error %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-                {% endif %}
                 <form method="POST" action="{{ url_for('login') }}">
                     <div class="login-identifyProviders">
                         <input type="text" class="input" placeholder="Username" id="username" name="username" required>
                         <input type="password" class="input" placeholder="Password" id="password" name="password" required>
                         <button type="submit" class="btn btn-sm" id="login-button">Log in</button>
                         <a href="" id="lost-password">Lost password?</a>
+                        <a href="{{ url_for('register') }}" id="register-link">Register</a>
                     </div>
                 </form>
                 <hr>
