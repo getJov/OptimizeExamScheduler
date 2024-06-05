@@ -222,6 +222,28 @@ def delete_user(user_id):
     
     return redirect(url_for('list_users'))
 
+
+# CRUD: Delete users log
+@app.route('/delete_user_logs/<int:user_id>', methods=['POST'])
+def delete_user_logs(user_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM user_logs WHERE LogID = %s', (user_id,))
+    user = cursor.fetchone()
+
+    # Log successful deletion
+    log_event(session['UserID'], 'Deleted', f"user with ID {user_id}")
+    logger.info(f"User '{'Username'}' successfully deleted.")
+
+    cursor.execute('DELETE * FROM user_logs WHERE LogID = %s', (user_id,))
+    mysql.commit()
+    cursor.close()
+    
+    return redirect(url_for('list_logs'))
+
+# logging
 # logs list
 @app.route('/logs')
 def list_logs():
@@ -236,6 +258,22 @@ def list_logs():
     cursor.close()
 
     return render_template('logs.html', users=users, username=username, session=session)
+
+# login logs
+@app.route('/login_logs')
+def login_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+    
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM user_logs')
+    users = cursor.fetchall()
+    cursor.close()
+
+    return render_template('loginlogs.html', users=users, username=username, session=session)
+
 
 @app.route('/process_csv', methods=['POST'])
 def process_csv():
