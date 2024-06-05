@@ -336,6 +336,14 @@ def get_csv():
     response = make_response(output.getvalue())
     response.headers["Content-Disposition"] = "attachment; filename=data.csv"
     response.headers["Content-type"] = "text/csv"
+
+    # Log generated exam schedule
+    if 'UserID' in session:
+        log_event(session['UserID'], 'exam generated', 'study hard!')
+        logger.info(f"UserID '{session['UserID']}' exam generated successfully.")
+    else:
+        logger.warning("Attempt to generate exam schedule without login.")
+
     return response
 
 @app.route('/search', methods=['POST'])
