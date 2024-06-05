@@ -34,16 +34,8 @@ def log_event(UserID, action, description):
 @app.route('/')
 def home():
     if 'username' in session:
-        if session['role'] == 1:
-            return redirect(url_for('superadmin'))
-        elif session['role'] == 2:
-            return redirect(url_for('admin'))
-        elif session['role'] == 3:
-            return redirect(url_for('faculty'))
-        else:
-            return redirect(url_for('home'))
-    
-    return render_template('login.html')
+        return f"Hello, {session['username']}! You are logged in as {session['role']}."
+    return redirect(url_for('login'))
 
 
 # login route
@@ -408,7 +400,6 @@ def logout():
         logger.info(f"UserID '{session['UserID']}' logged out.")
     session.clear()
     return redirect(url_for('home'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)
