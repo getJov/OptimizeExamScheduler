@@ -1,40 +1,67 @@
-from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response, session
+from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response, session, flash
 from flask import make_response
 from flask_bcrypt import Bcrypt
 import mysql.connector
 import csv
 import io
+# import logging
+from loguru import logger
+from datetime import datetime
 
 from backend.py.checkMissingData import check_missing_data
 from backend.py.generateExamSched import titleForExam
+from backend.db.db import dbconfig
 
 app = Flask(__name__)
 app.secret_key = 'oes'
 bcrypt = Bcrypt(app)
 
-# MySQL configurations
-# testing 
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',
-    'database': 'oes'
-}
-
+db_config = dbconfig()
 mysql = mysql.connector.connect(**db_config)
 
-# loginPage / Home
+def log_event(UserID, action, description):
+    # Log event
+    event_time = datetime.now()
+    cursor = mysql.cursor()
+    cursor.execute("INSERT INTO user_logs (UserID, Action, Description, Timestamp) VALUES (%s, %s, %s, %s)", (UserID, action, description, event_time))
+    mysql.commit()
+    
+    # Log event using loguru logger
+    logger.info(f"UserID '{UserID}' {action} {description} at {event_time}")
+
+
+#Home route
 @app.route('/')
 def home():
     if 'username' in session:
-        return f"Hello, {session['username']}! You are logged in as {session['role']}."
-    return redirect(url_for('login'))
+        if session['role'] == 1:
+            return redirect(url_for('superadmin'))
+        elif session['role'] == 2:
+            return redirect(url_for('admin'))
+        elif session['role'] == 3:
+            return redirect(url_for('faculty'))
+        else:
+            return redirect(url_for('home'))
+    
+    return render_template('login.html')
 
 
-# login
+# login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+
+    # If the user is already logged in, redirect them to their dashboard
+    if 'username' in session:
+        if session['role'] == 1:
+            return redirect(url_for('superadmin'))
+        elif session['role'] == 2:
+            return redirect(url_for('admin'))
+        elif session['role'] == 3:
+            return redirect(url_for('faculty'))
+        else:
+            return redirect(url_for('home'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -44,7 +71,14 @@ def login():
 
         if user and bcrypt.check_password_hash(user['PasswordHash'], password):
             session['username'] = user['Username']
+            session['UserID'] = user['UserID']  # Add UserID to session
             session['role'] = user['RoleID']
+            
+             # Log successful login
+            log_event(user['UserID'], 'logged in', 'welcome back')
+            logger.info(f"User '{username}' logged in successfully.")
+
+
             if user['RoleID'] == 1:
                 return redirect(url_for('superadmin'))
             elif user['RoleID'] == 2:
@@ -55,40 +89,153 @@ def login():
                 return redirect(url_for('home'))
         else:
             error = "Invalid credentials, please try again."
+
     return render_template('login.html', error=error)
 
-# register
+# Register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     error = None
+
+    # Check if the user is logged in
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
+        # Retrieve form data
         username = request.form['username']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
         email = request.form['email']
         firstName = request.form['firstName']
         lastName = request.form['lastName']
         role = request.form['role']
 
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        # Validate form data
+        if not username or not password or not confirm_password or not email or not firstName or not lastName or not role:
+            error = "All fields are required."
+        elif len(password) < 8:  # Password length validation
+            error = "Password must be at least 8 characters long."
+        elif password != confirm_password:  # Password match validation
+            error = "Passwords do not match."
 
+        # Check if username or email already exists
         cursor = mysql.cursor()
         try:
-            cursor.execute('INSERT INTO User (Username, PasswordHash, Email, firstName, lastName, RoleID, CreatedAt, UpdatedAt) VALUES (%s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)',
-                           (username, hashed_password, email, firstName, lastName, role))
-            mysql.commit()
+            cursor.execute("SELECT * FROM user WHERE Username = %s OR Email = %s", (username, email))
+            user = cursor.fetchone()
+            if user:
+                error = "Username or email already exists."
         except mysql.connector.Error as err:
-            error = f"Error: {err}"
+            error = f"Database error: {err}"
         finally:
             cursor.close()
 
         if not error:
-            return redirect(url_for('superadmin'))
-    
-    return render_template('superadmin.html', error=error)
+            # Hash password
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-@app.route('/index.html')
-def index():
-    return render_template("index.html")
+            # Insert user into database
+            cursor = mysql.cursor()
+            try:
+                cursor.execute('INSERT INTO user (Username, PasswordHash, Email, firstName, lastName, RoleID, CreatedAt, UpdatedAt) VALUES (%s, %s, %s, %s, %s, %s, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)',
+                               (username, hashed_password, email, firstName, lastName, role))
+                mysql.commit()
+                
+                # Log successful registration
+                log_event(session['UserID'], 'registered', 'Welcome User')
+                logger.info(f"User '{username}' registered successfully.")
+            
+                flash("Register inserted successfully.")
+                return redirect(url_for('supadregister'))
+            except mysql.connector.Error as err:
+                error = f"Database error: {err}"
+            finally:
+                cursor.close()
+
+    return render_template('supadregister.html', error=error, session=session)
+
+# CRUD: View all users
+@app.route('/users')
+def list_users():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+    
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM user')
+    users = cursor.fetchall()
+    cursor.close()
+
+    return render_template('users.html', users=users, username=username, session=session)
+
+# CRUD: Edit user
+@app.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+def edit_user(user_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        firstName = request.form['firstName']
+        lastName = request.form['lastName']
+        role = request.form['role']
+
+        cursor.execute('UPDATE user SET Username = %s, Email = %s, firstName = %s, lastName = %s, RoleID = %s, UpdatedAt = CURRENT_TIMESTAMP WHERE UserID = %s',
+                       (username, email, firstName, lastName, role, user_id))
+        mysql.commit()
+
+        # Log successful edited the userlist
+        log_event(session['UserID'], 'updated', f"user with ID {user_id}")
+        logger.info(f"User '{username}'  successfully.")
+
+
+        cursor.close()
+        return redirect(url_for('list_users'))
+
+    cursor.execute('SELECT * FROM user WHERE UserID = %s', (user_id,))
+    user = cursor.fetchone()
+    cursor.close()
+
+    return render_template('edit_user.html', user=user, session=session)
+
+# CRUD: Delete user
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT Username FROM user WHERE UserID = %s', (user_id,))
+    user = cursor.fetchone()
+
+    # Log successful deletion
+    log_event(session['UserID'], 'Deleted', f"user with ID {user_id}")
+    logger.info(f"User '{'Username'}' successfully deleted.")
+
+    cursor.execute('DELETE FROM user WHERE UserID = %s', (user_id,))
+    mysql.commit()
+    cursor.close()
+    
+    return redirect(url_for('list_users'))
+
+# logs list
+@app.route('/logs')
+def list_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+    
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM user_logs')
+    users = cursor.fetchall()
+    cursor.close()
+
+    return render_template('logs.html', users=users, username=username, session=session)
 
 @app.route('/process_csv', methods=['POST'])
 def process_csv():
@@ -160,12 +307,39 @@ def search():
     
     return jsonify({'results': results})
 
+# generate exam
+@app.route('/index')
+def index():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('index.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
 # superadmin
 @app.route('/superadmin')
 def superadmin():
     if 'username' in session and session['role'] == 1:
         username = session['username']
         return render_template('superadmin.html', username=username)
+    else:
+        return redirect(url_for('login'))
+    
+#for superadmin register
+@app.route('/supadregister')
+def supadregister():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('supadregister.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+#users route
+@app.route('/users')
+def users():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('users.html', username=username)
     else:
         return redirect(url_for('login'))
 
@@ -187,11 +361,16 @@ def faculty():
     else:
         return redirect(url_for('login'))
 
-# logout
+# Logout route
 @app.route('/logout')
 def logout():
+    if 'UserID' in session:
+        # Log logout event
+        log_event(session['UserID'], 'logged out', 'Thank you!')
+        logger.info(f"UserID '{session['UserID']}' logged out.")
     session.clear()
     return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
