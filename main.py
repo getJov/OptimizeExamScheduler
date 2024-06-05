@@ -13,6 +13,7 @@ app.secret_key = 'oes'
 bcrypt = Bcrypt(app)
 
 # MySQL configurations
+# testing 
 db_config = {
     'host': 'localhost',
     'user': 'root',
