@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const table = document.getElementById('editableTable');
     const generateSchedBtn = document.getElementById('generateSchedBtn');
 
-    logoutBtn.addEventListener('click', () => {
-        window.location.href = '/';
-    });
 
     // Navigate to history.html on "Generate Schedule" button click
     generateSchedBtn.addEventListener('click', function () {

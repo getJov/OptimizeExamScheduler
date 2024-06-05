@@ -235,37 +235,55 @@ def delete_user_logs(user_id):
     
     return redirect(url_for('list_logs'))
 
-# logging
+#filter user logs
+@app.route('/filter_logs', methods=['POST'])
+def filter_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+
+    try:
+        cursor = mysql.cursor(dictionary=True)
+
+        # Fetch all logs
+        cursor.execute("SELECT * FROM filtered_logs")
+        all_logs = cursor.fetchall()
+
+        # Fetch filtered logs based on selected actions
+        selected_actions = request.form.getlist('action')
+        if "All" in selected_actions:
+            users = all_logs  # Display all logs if "All" is selected
+        elif selected_actions:
+            placeholders = ', '.join(['%s'] * len(selected_actions))
+            query = f"SELECT * FROM filtered_logs WHERE Action IN ({placeholders})"
+            cursor.execute(query, selected_actions)
+            users = cursor.fetchall()
+        else:
+            users = all_logs  # Display all logs if no actions are selected
+                
+    except mysql.connector.Error as e:
+        print("Error:", e)
+        users = []
+    finally:
+        cursor.close()
+
+    return render_template('supadminlogs.html', users=users, username=username)
+
 # logs list
-@app.route('/logs')
-def list_logs():
+@app.route('/fecth_logs')
+def fecth_logs():
     if 'username' in session and session['role'] == 1:
         username = session['username']
     else:
         return redirect(url_for('login'))
     
     cursor = mysql.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM user_logs')
+    cursor.execute('SELECT * FROM filtered_logs')
     users = cursor.fetchall()
     cursor.close()
 
-    return render_template('logs.html', users=users, username=username, session=session)
-
-# login logs
-@app.route('/login_logs')
-def login_logs():
-    if 'username' in session and session['role'] == 1:
-        username = session['username']
-    else:
-        return redirect(url_for('login'))
-    
-    cursor = mysql.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM user_logs')
-    users = cursor.fetchall()
-    cursor.close()
-
-    return render_template('loginlogs.html', users=users, username=username, session=session)
-
+    return render_template('supadminlogs.html', users=users, username=username, session=session)
 
 @app.route('/process_csv', methods=['POST'])
 def process_csv():
@@ -361,6 +379,15 @@ def supadregister():
     if 'username' in session and session['role'] == 1:
         username = session['username']
         return render_template('supadregister.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+#superadmin logs
+@app.route('/supad_logs')
+def supad_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('supadminlogs.html', username=username)
     else:
         return redirect(url_for('login'))
 
