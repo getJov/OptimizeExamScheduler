@@ -1,0 +1,405 @@
+:root {
+    --main-color: #2B8700;
+    --main-color-hover: #1F6100;
+    --bg-color:#F2F3F7;
+    --box-shadow: #EAECF1;
+    --grey: #767676;
+    --grey-button: #CED4DA;
+    --grey-button-hover: #B8C1CA;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+    background-color: white;
+    font-weight: bold;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 2px 4px var(--box-shadow); 
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    color: #155124;
+    font-size: .8em;
+}
+
+.title-full {
+    display: inline;
+}
+
+.title-abbr {
+    display: none;
+}
+
+@media (max-width: 676px) {
+    .title-full {
+        display: none;
+    }
+
+    .title-abbr {
+        display: inline;
+    }
+}
+
+.navbar-nav {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    font-size: .8em;
+    color: var(--grey);
+    text-decoration: none; 
+}
+
+.nav-link.active {
+    color: var(--main-color);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--main-color);
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active {
+    color: var(--main-color);
+}
+
+.content {
+    display: flex;
+    align-items: flex-start;
+}
+
+#user-img {
+    height: 30px;
+    width: 30px;
+}
+
+#profile-info {
+    display: none;
+    position: absolute;
+    margin-top: 4rem;
+    right: 0;
+    align-self: start;
+    background-color: #ffffff;
+    padding: 22px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px var(--box-shadow); 
+    font-size: .9rem;
+}
+
+#user-name {
+    color: #000000c6;
+}
+
+#user-email {
+    color: #00000096;
+}
+
+#logout-btn {
+    width: 100%;
+    font-weight: bold;
+}
+
+#logout-btn:hover {
+    background-color: #2B8700;
+    color: white;
+}
+
+#sidebar-btn {
+    margin-top: 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 0px 25px 25px 0px;
+    padding: 0.5rem; 
+    transition: width 0.3s;
+}
+
+#sidebar-btn p {
+    margin: 0;  
+    padding: 0;  
+}
+
+#sidebar-btn img {
+    margin-left: 0.5rem;
+}
+#arrow-right {
+    display: block;
+}
+
+#arrow-left {
+    display: none;
+}
+
+#sidebar-btn:hover {
+    background-color: var(--main-color-hover)
+}
+
+#sidebar-history {
+    display: none; 
+    width: 276px;
+    height: calc(200vh - 7.5rem);
+    background-color: var(--grey-button);
+    padding: 0.5rem; 
+    transition: display 0.3s ease-in-out;
+    flex-direction: column;
+}
+
+
+#sidebar-history a {
+    text-decoration: none;
+    color: #000;
+}
+
+#sidebar-history a:hover {
+    color: white;
+}
+
+.holder {
+    padding: 10px;
+    font-weight: 300;
+    height: 100px;
+}
+
+.holder:hover {
+    background-color: var(--grey-button-hover);
+    border-radius: 0px 5px 5px 0px;
+    border-left: 5px solid #2B8700;
+}
+
+.holder span{
+    font-size: small;
+}
+
+.sidebar-history.flex {
+    display: flex; /* Show sidebar when needed */
+}
+
+.holder.selected {
+    background-color: white;
+    border-left: 5px solid #2B8700;
+}
+
+.con {
+    margin: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 50px;
+    height: fit-content;
+    width: 50vw;
+}
+
+.max-size {
+    font-size: x-small;
+    margin-top: 20px;
+    text-align: right;
+}
+
+.file-type {
+    font-size: small;
+    margin-top: 20px;
+}
+
+#drop-area {
+    text-align: center;
+    padding: 32px;
+    border-radius: 5px;
+}
+
+#drop-area.dragover {
+    border-color: #0f6cbf;
+}
+
+#drop-area.dragout {
+    border-color: #f7634d;
+}
+
+#drop-area p {
+    margin: 0;
+}
+
+.responsive-container {
+    max-width: 100%;
+}
+
+.responsive-image {
+    max-width: 50%; 
+    height: auto;
+}
+
+.responsive-text {
+    font-size: 12px;
+}
+
+
+.btn.btn-upload {
+    background-color: var(--main-color);
+    color: white;
+}
+
+.btn.btn-upload:hover {
+    background-color: var(--main-color-hover);
+    color: white;
+}
+
+.file-upload {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: small;
+    color: black;
+    border-radius: 5px;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload i {
+    margin-right: 5px;
+}
+
+.file-upload:hover {
+    color: var(--main-color);
+    background-color: var(--grey-button);
+}
+
+#file-icon path{
+    height: 15px;
+}
+
+#file-icon:hover {
+    fill: var(--main-color);
+}
+
+.upload-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+
+.error-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-message {
+    background-color: white; 
+    padding: 20px;
+    text-align: center;
+}
+
+.error-icon {
+    width: 30px; 
+    height: 30px;
+    margin-bottom: 10px; 
+}
+
+.error-text {
+    color: #000; 
+    font-weight: bold;
+    margin-bottom: 15px; 
+}
+
+.btn-ok {
+    background-color: var(--main-color); 
+    color: #fff; 
+}
+
+.btn-ok:hover {
+    background-color: var(--main-color-hover); 
+    color: #fff; 
+}
+
+.btn-cancel {
+    background-color: var(--grey-button);
+}
+
+.btn-cancel:hover {
+    background-color: var(--grey-button-hover);
+}
+
+
+#progressBarContainer {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  #progressBar {
+    width: 0;
+    height: 20px;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  
+/* calendar */
+  .fc-col-header-cell-cushion {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .fc-col-header-cell-cushion:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  
+
+  .fc-daygrid-day-number{
+    text-decoration: none;
+    color: #000;
+  }
+
+  .fc-daygrid-day-number:hover{
+    text-decoration: none;
+    color: #000;
+  }
+
+  .fc-button-primary {
+     color: black; 
+     background-color: #1F6100 !important; 
+     border-color: #1F6100 !important; 
+    }
+
