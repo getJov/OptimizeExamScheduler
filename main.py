@@ -26,7 +26,8 @@ mysql = mysql.connector.connect(**db_config)
 @app.route('/')
 def home():
     if 'username' in session:
-        return f"Hello, {session['username']}! You are logged in as {session['role']}."
+        return render_template('index.html')
+    
     return redirect(url_for('login'))
 
 
@@ -191,6 +192,11 @@ def faculty():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+# create Schedule
+@app.route('/createSchedule')
+def createSchedule():
+    return render_template('createSchedule.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

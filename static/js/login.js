@@ -1,7 +1,3 @@
-document.getElementById('login-button').addEventListener('click', function () {
-    window.location.href = 'index.html';
-});
-
 document.getElementById('google-account-btn').addEventListener('click', function () {
     window.location.href = '/history';
 });

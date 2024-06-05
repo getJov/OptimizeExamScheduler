@@ -1,0 +1,64 @@
+.createSchedule {
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h6 {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.header button {
+    background-color: #2B8700;
+    color: white;
+}
+
+.header button:hover {
+    background-color: #1F6100;
+    color: white;
+}
+
+.examTitleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.examTitle {
+    display: flex;
+    width: 562px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.examDate {
+    display: flex;
+    width: 370px;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+button {
+    display: flex;
+    width: 178px;
+    padding: 8px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+
+    border-radius: 5px;
+    border: 1px solid #B0B0B0;
+    background: #D9D9D9;
+}
+
+img {
+    width: 24px;
+height: 24px;
+flex-shrink: 0;
+}
