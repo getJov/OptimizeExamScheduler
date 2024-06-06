@@ -1,0 +1,14 @@
+
+    <div class="list-group">
+        {% for announcement in announcements %}
+            <div class="list-group-item">
+                <h4>{{ announcement.title }}</h4>
+                <p>{{ announcement.content }}</p>
+                <small><strong>Posted on:</strong> {{ announcement.created_at }}</small>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+

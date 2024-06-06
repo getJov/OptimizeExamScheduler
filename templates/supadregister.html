@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Optimize Exam Scheduler</title>
+    <title>Super Admin - Optimize Exam Scheduler</title>
+    <link rel="icon" type="image/svg" href="./static/images/OES ICON.svg">
     <link rel="stylesheet" type="text/css" href="../static/css/historycopyforsuperadmin.css">
     <link rel="stylesheet" type="text/css" href="../static/css/stylescopyforsuperadmin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -11,8 +12,8 @@
 </head>
 <body>
      
-     <!-- navbar -->
-   {% include 'includes/superadminNav.html' %}
+    <!-- navbar -->
+    {% include 'includes/Nav.html' %}
 
          <!-- Page Content -->
          <div id="page-content-wrapper">
@@ -29,7 +30,7 @@
                                         <div class="card-body mb-5">
                                             <div class="container-fluid mt-5">
                                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h3 class="container-fluid text-start mt-3">Add New User</h3>
+                                                <h3 class="container-fluid mt-3 text-start fs-4 fw-bolder">Add New User</h3>
                                                 </div>
                                                     {% with messages = get_flashed_messages() %}
                                                     {% if messages %}
@@ -102,7 +103,7 @@
                                                                         <div class="invalid-feedback">Role is required.</div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="submit" class="btn btn-success pe-4 ps-4">Register</button>
+                                                                        <button type="submit" class="btn btn-success pe-4 ps-4" id="addnewuser">Register</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
