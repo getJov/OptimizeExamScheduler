@@ -7,6 +7,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .header h6 {
@@ -29,43 +30,32 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    width: 100%; /* Ensure it takes the full width */
 }
 
-.examTitle {
+.examTitle, .examDate {
     display: flex;
-    width: 562px;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
     gap: 10px;
-}
-
-.examDate {
-    display: flex;
-    width: 370px;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.examTitleContainer img {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
+    width: 100%; /* Ensure it takes the full width */
 }
 
 .dropdown-container {
     position: relative;
     display: inline-block;
+    flex: 1;
+    min-width: 150px; /* Ensure a minimum width for smaller screens */
 }
 
 .dropdown-input {
-    width: 178px;
+    width: 100%; /* Ensure it takes the full width of its container */
     padding: 5px;
-    padding-right: 30px;
-    /* Space for the icon */
+    padding-right: 30px; /* Space for the icon */
     font-size: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .no-icon-right {
@@ -78,70 +68,55 @@
     right: 10px;
     transform: translateY(-50%);
     pointer-events: none;
-    /* So the icon doesn't block the input */
     font-size: 16px;
     color: #999;
 }
 
 .type-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-}
-
-.type {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.generateSchedule {
-    display: flex;
-    padding: 10px 20px;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    width: 100%;
+}
 
+.type, .search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.generateSchedule, .normalBtn {
+    flex: 1;
+    padding: 10px;
+    border: none;
     border-bottom: 3px solid var(--accent, #2B8700);
     color: #2B8700;
-}
-
-.type button {
+    text-align: center;
+    cursor: pointer;
     font-size: small;
     font-weight: bold;
 }
 
-.type button:hover {
-    color: #2B8700;
-    font-size: small;
-    font-weight: bold;
-}
-
-.normalBtn {
+.generateScheduleBtn {
     display: flex;
-    width: 140px;
-    padding: 10px 20px;
-    align-items: flex-start;
-    gap: 10px;
-    color: #2b870087;
-}
-
-
-.search-bar {
-    display: flex;
+    width: 100%;
+    padding: 8px;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    background: var(--accent, #2B8700);
+    color: white;
 }
 
 #searchInput {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    flex: 1;
     border: 1px solid #ccc;
+    border-radius: 5px;
     background-color: #eee;
-    padding: 4px;
-    padding-left: 10px;
+    padding: 4px 10px;
     font-size: small;
     transition: border-color 0.3s ease;
     outline: none;
@@ -149,105 +124,56 @@
 
 #searchInput:focus {
     border: 2px solid #2B8700;
-    /* border-color: #2B8700; */
 }
 
 #searchbtn {
     background-color: #2B8700;
     border: none;
-}
-
-#searchbtn {
-    margin-left: -1px;
-    /* This removes the gap between the input and the button */
-}
-
-#searchbtn:first-of-type {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-.btn-print {
-    margin-left: 20px;
-    /* Adjust this value as needed */
-}
-
-#searchInput {
-    flex: 1;
-}
-
-#searchInput::placeholder {
-    font-size: small;
+    border-radius: 5px;
+    margin-left: -1px; /* This removes the gap between the input and the button */
 }
 
 .dataset-container {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-    align-self: stretch;
+    width: 100%;
 }
 
 .datasetStatus {
     display: flex;
-    width: 190px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 17px;
+    width: 100%;
+    gap: 10px;
 }
 
 .datasetStatus-header {
     color: #000;
-
     font-family: Inter;
     font-size: 12px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
 }
 
 .statusContainer {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    align-self: stretch;
+    width: 100%;
 }
 
-.statusTitle {
+.statusTitle, .statusTitle-value {
     color: #000;
-
     font-family: Inter;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-.statusTitle-value {
-    color: #000;
-
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .totalErrorContainer {
     display: flex;
-    padding: 20px 0px;
     justify-content: space-between;
-    align-items: flex-start;
-    align-self: stretch;
-
+    width: 100%;
+    padding-top: 10px;
     border-top: 1px solid #000;
 }
-
-.totalErrorContainer span {
-    font-weight: 500;
-}
-
 
 .table-responsive {
     width: 100%;
@@ -262,20 +188,19 @@
     border: 1px solid #C0C0C2;
 }
 
-.table th,
-.table td {
+.table th, .table td {
     border: 1px solid #C0C0C2;
     padding: 2px;
     text-align: left;
     vertical-align: middle;
-    width: 14.28%;
+    text-align: center;
+    width: 14.28%; /* Ensure all columns have the same width (100% / 7 columns) */
 }
 
 .table thead th {
     background-color: #2B8700;
     color: white;
     font-size: 10px;
-    text-align: center;
 }
 
 .table tbody tr:nth-child(odd) {
@@ -288,13 +213,11 @@
 
 .table tbody td .action-buttons {
     display: flex;
-    justify-content: center;
-    /* Center the buttons in the Action column */
+    justify-content: center; /* Center the buttons in the Action column */
     gap: 5px;
 }
 
-.edit-btn,
-.delete-btn {
+.edit-btn, .delete-btn {
     background-color: #2B8700;
     color: white;
     border: none;
@@ -306,18 +229,36 @@
 
 .delete-btn {
     background-color: #d9534f;
-    /* Red color for delete button */
 }
 
-.generateScheduleBtn {
-    display: flex;
-    width: 175px;
-    padding: 8px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+@media (max-width: 768px) {
+    .header h6 {
+        font-size: small;
+    }
 
-    border-radius: 5px;
-    background: var(--accent, #2B8700);
-    color: white;
+    .dropdown-input {
+        font-size: small;
+        padding: 5px;
+    }
+
+    .generateSchedule, .normalBtn {
+        padding: 8px;
+        font-size: x-small;
+    }
+
+    #searchInput {
+        font-size: x-small;
+    }
+
+    .datasetStatus-header {
+        font-size: small;
+    }
+
+    .statusTitle, .statusTitle-value {
+        font-size: x-small;
+    }
+
+    .table thead th {
+        font-size: x-small;
+    }
 }
