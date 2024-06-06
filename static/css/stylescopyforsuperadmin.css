@@ -92,8 +92,8 @@ body {
 }
 
 #user-img {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
 }
 
 #profile-info {
@@ -399,7 +399,26 @@ body {
 
   .fc-button-primary {
      color: black; 
-     background-color: #1F6100 !important; 
-     border-color: #1F6100 !important; 
+     background-color: #2B8700 !important; 
+     border-color: #2B8700 !important; 
     }
+
+/* superadmin logs */
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: #2B8700 !important; /* Change text color on hover/focus */
+    color: #e6e6e6 !important; /* Change background color on hover/focus */
+}
+
+#table-head, #filterDropdown{
+    background-color: #2B8700 !important;
+}
+
+#addnewuser{
+    background-color: #2B8700 !important;
+   
+}
+
+
 

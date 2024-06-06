@@ -29,7 +29,6 @@ def log_event(UserID, action, description):
     # Log event using loguru logger
     logger.info(f"UserID '{UserID}' {action} {description} at {event_time}")
 
-
 #Home route
 @app.route('/')
 def home():
@@ -147,6 +146,55 @@ def register():
 
     return render_template('supadregister.html', error=error, session=session)
 
+
+
+# Route to view all announcements
+@app.route('/announcements')
+def announcements():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM announcements ORDER BY created_at DESC')
+    announcements = cursor.fetchall()
+    cursor.close()
+    return render_template('announcementss.html', announcements=announcements)
+
+
+# Route to create a new announcement
+@app.route('/create_announcement', methods=['GET', 'POST'])
+def create_announcement():
+    if 'username' not in session or session.get('role') not in [1, 2]:  # Only superadmin and admin can create announcements
+        return redirect(url_for('login'))
+
+    username = session['username']
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+
+        cursor = mysql.cursor()
+        try:
+            cursor.execute('INSERT INTO announcements (title, content) VALUES (%s, %s)', (title, content))
+            mysql.commit()
+
+            # Log event
+            log_event(session['UserID'], 'created announcement', f'title: {title}')
+            logger.info(f"Announcement '{title}' created successfully.")
+            
+            flash('Announcement created successfully.', 'success')
+            return redirect(url_for('announcement'))
+        except mysql.connector.Error as err:
+            flash(f'Database error: {err}', 'danger')
+        finally:
+            cursor.close()
+
+    return render_template('create_announcement.html', username=username)
+
+
+
 # CRUD: View all users
 @app.route('/users')
 def list_users():
@@ -214,20 +262,76 @@ def delete_user(user_id):
     
     return redirect(url_for('list_users'))
 
+
+# CRUD: Delete users log
+@app.route('/delete_user_logs/<int:user_id>', methods=['POST'])
+def delete_user_logs(user_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM user_logs WHERE LogID = %s', (user_id,))
+    user = cursor.fetchone()
+
+    # Log successful deletion
+    log_event(session['UserID'], 'Deleted', f"user with ID {user_id}")
+    logger.info(f"User '{'Username'}' successfully deleted.")
+
+    cursor.execute('DELETE * FROM user_logs WHERE LogID = %s', (user_id,))
+    mysql.commit()
+    cursor.close()
+    
+    return redirect(url_for('list_logs'))
+
+#filter user logs
+@app.route('/filter_logs', methods=['POST'])
+def filter_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+
+    try:
+        cursor = mysql.cursor(dictionary=True)
+
+        # Fetch all logs
+        cursor.execute("SELECT * FROM filtered_logs")
+        all_logs = cursor.fetchall()
+
+        # Fetch filtered logs based on selected actions
+        selected_actions = request.form.getlist('action')
+        if "All" in selected_actions:
+            users = all_logs  # Display all logs if "All" is selected
+        elif selected_actions:
+            placeholders = ', '.join(['%s'] * len(selected_actions))
+            query = f"SELECT * FROM filtered_logs WHERE Action IN ({placeholders})"
+            cursor.execute(query, selected_actions)
+            users = cursor.fetchall()
+        else:
+            users = all_logs  # Display all logs if no actions are selected
+                
+    except mysql.connector.Error as e:
+        print("Error:", e)
+        users = []
+    finally:
+        cursor.close()
+
+    return render_template('supadminlogs.html', users=users, username=username)
+
 # logs list
-@app.route('/logs')
-def list_logs():
+@app.route('/fecth_logs')
+def fecth_logs():
     if 'username' in session and session['role'] == 1:
         username = session['username']
     else:
         return redirect(url_for('login'))
     
     cursor = mysql.cursor(dictionary=True)
-    cursor.execute('SELECT * FROM user_logs')
+    cursor.execute('SELECT * FROM filtered_logs')
     users = cursor.fetchall()
     cursor.close()
 
-    return render_template('logs.html', users=users, username=username, session=session)
+    return render_template('supadminlogs.html', users=users, username=username, session=session)
 
 @app.route('/process_csv', methods=['POST'])
 def process_csv():
@@ -280,6 +384,14 @@ def get_csv():
     response = make_response(output.getvalue())
     response.headers["Content-Disposition"] = "attachment; filename=data.csv"
     response.headers["Content-type"] = "text/csv"
+
+    # Log generated exam schedule
+    if 'UserID' in session:
+        log_event(session['UserID'], 'exam generated', 'study hard!')
+        logger.info(f"UserID '{session['UserID']}' exam generated successfully.")
+    else:
+        logger.warning("Attempt to generate exam schedule without login.")
+
     return response
 
 @app.route('/search', methods=['POST'])
@@ -323,6 +435,15 @@ def supadregister():
     if 'username' in session and session['role'] == 1:
         username = session['username']
         return render_template('supadregister.html', username=username)
+    else:
+        return redirect(url_for('login'))
+
+#superadmin logs
+@app.route('/supad_logs')
+def supad_logs():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('supadminlogs.html', username=username)
     else:
         return redirect(url_for('login'))
 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Super Admin - Optimize Exam Scheduler</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/historycopyforsuperadmin.css">
+    <link rel="stylesheet" href="./static/css/stylescopyforsuperadmin.css">
+    <link rel="icon" type="image/svg" href="./static/images/OES ICON.svg">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+     <!-- navbar -->
+   {% include 'includes/Nav.html' %}
+    
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="content" style="background-color: #F2F3F7;">
+            <div class="sidebar-container">
+                {% include 'includes/superadminsidebar.html' %}
+
+            </div>
+            <!-- Table -->
+            <div class="table-containers container-fluid px-5 py-5">
+                <div class="table-container container-fluid">    
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <div class="card-body mb-5">
+                                    <div class="container-fluid mt-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h2 class="text-start fs-3 fw-bolder">User Logs</h2>
+                                            
+                                            <div id="rigth-side">
+                                                <div class="search-bar">
+                                                    <input type="text" id="searchInput" placeholder="Search...">
+                                                    <button onclick="performSearch()" id="searchbtn">
+                                                        <img src="../static/images/search icon.svg" alt="">
+                                                    </button>
+                                                    <div class="dropdown">
+                                                        <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="All"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="logged in"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="registered"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="updated"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="deleted"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="exam generated"></li>
+                                                            <li><input class="dropdown-item" type="submit" form="filterForm" name="action" value="logged out"></li>
+                                                        </ul>
+                                                    </div>
+                                                    <button class="btn btn-success dropdown-toggle fw-bold me-3 ms-3" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Filter Actions
+                                                    </button>
+                                                </div>
+                                            </div>
+                                           
+                                           
+                                        </div>
+                                        
+                                        <div class="table-responsive">
+                                            <form id="filterForm" method="POST" action="/filter_logs">
+                                                <input type="hidden" name="filter" value="true">
+                                            </form>
+                                            
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="thead-dark">
+                                                    <tr class="bg-success text-white" id="table-head">
+                                                        <th>LogID</th>
+                                                        <th>UserID</th>
+                                                        <th>Username</th>
+                                                        <th>Email</th>
+                                                        <th>Action</th>
+                                                        <th>Timestamp</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for user in users %}
+                                                    <tr>
+                                                        <td>{{ user.LogID }}</td>
+                                                        <td>{{ user.UserID }}</td>
+                                                        <td>{{ user.Username }}</td>
+                                                        <td>{{ user.email }}</td>
+                                                        <td>{{ user.Action }}</td>
+                                                        <td>{{ user.Timestamp }}</td>
+                                                    </tr>                        
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8S3gVXEjIo607E2FfewJw4tkP2ciKE6hFfFkZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
