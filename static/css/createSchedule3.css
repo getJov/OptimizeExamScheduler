@@ -1,5 +1,7 @@
+/* Common Styles */
 .createSchedule {
     background-color: white;
+    box-shadow: 0px 2px 4px #EAECF1;
 }
 
 .header {
@@ -7,19 +9,24 @@
     justify-content: space-between;
     align-items: center;
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .header h6 {
-    font-size: medium;
+    font-size: 20px;
     font-weight: bold;
 }
 
 .header button {
     background-color: #2B8700;
     color: white;
+    font-size: 12px;
 }
 
-.header button:hover, .generateScheduleBtn:hover {
+.header button:hover,
+.generateScheduleBtn:hover,
+.addBtn:hover,
+.room-addBtn:hover {
     background-color: #1F6100;
     color: white;
 }
@@ -29,22 +36,23 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+    margin-bottom: 10px;
+}
+
+.examTitle,
+.examDate {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .examTitle {
-    display: flex;
     width: 562px;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
 }
 
 .examDate {
-    display: flex;
     width: 370px;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
 }
 
 .examTitleContainer img {
@@ -66,6 +74,7 @@
     font-size: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 10px;
 }
 
 .no-icon-right {
@@ -78,7 +87,6 @@
     right: 10px;
     transform: translateY(-50%);
     pointer-events: none;
-    /* So the icon doesn't block the input */
     font-size: 16px;
     color: #999;
 }
@@ -88,6 +96,17 @@
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
+    margin-bottom: 10px;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+button {
+    border: none;
+    background-color: white;
 }
 
 .type {
@@ -95,14 +114,16 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    margin-bottom: 10px;
 }
 
-.generateSchedule {
+.type-btn-selected {
     display: flex;
+    width: 170px;
     padding: 10px 20px;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
-
     border-bottom: 3px solid var(--accent, #2B8700);
     color: #2B8700;
 }
@@ -120,13 +141,25 @@
 
 .normalBtn {
     display: flex;
-    width: 140px;
+    width: 170px;
     padding: 10px 20px;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
     color: #2b870087;
 }
 
+/* Hide all containers by default */
+.facultyLoad-container,
+.examVenue-container,
+.generateSchedule-container {
+    display: none;
+}
+
+/* Show only the generate schedule container by default */
+.generateSchedule-container {
+    display: block;
+}
 
 .search-bar {
     display: flex;
@@ -149,7 +182,6 @@
 
 #searchInput:focus {
     border: 2px solid #2B8700;
-    /* border-color: #2B8700; */
 }
 
 #searchbtn {
@@ -159,7 +191,6 @@
 
 #searchbtn {
     margin-left: -1px;
-    /* This removes the gap between the input and the button */
 }
 
 #searchbtn:first-of-type {
@@ -171,7 +202,6 @@
 
 .btn-print {
     margin-left: 20px;
-    /* Adjust this value as needed */
 }
 
 #searchInput {
@@ -187,24 +217,22 @@
     align-items: flex-start;
     gap: 20px;
     align-self: stretch;
+    margin-bottom: 10px;
 }
 
 .datasetStatus {
     display: flex;
-    width: 190px;
+    width: 200px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 17px;
+    gap: 10px;
 }
 
 .datasetStatus-header {
     color: #000;
-
     font-family: Inter;
     font-size: 12px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
 }
 
 .statusContainer {
@@ -214,24 +242,11 @@
     align-self: stretch;
 }
 
-.statusTitle {
-    color: #000;
-
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
+.statusTitle,
 .statusTitle-value {
     color: #000;
-
     font-family: Inter;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .totalErrorContainer {
@@ -240,7 +255,6 @@
     justify-content: space-between;
     align-items: flex-start;
     align-self: stretch;
-
     border-top: 1px solid #000;
 }
 
@@ -248,11 +262,10 @@
     font-weight: 500;
 }
 
-
 .table-responsive {
     width: 100%;
     overflow-x: auto;
-    max-height: calc(100vh - 30vh); /* Adjust the value as needed */
+    max-height: calc(100vh - 29rem);
     overflow-y: auto;
 }
 
@@ -266,7 +279,7 @@
 .table td {
     border: 1px solid #C0C0C2;
     padding: 2px;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     width: 14.28%;
 }
@@ -279,7 +292,7 @@
 }
 
 .table tbody tr:nth-child(odd) {
-    background-color: #2b870085;
+    background-color: #2b87005e;
 }
 
 .table tbody tr:nth-child(even) {
@@ -289,7 +302,6 @@
 .table tbody td .action-buttons {
     display: flex;
     justify-content: center;
-    /* Center the buttons in the Action column */
     gap: 5px;
 }
 
@@ -306,18 +318,152 @@
 
 .delete-btn {
     background-color: #d9534f;
-    /* Red color for delete button */
 }
 
-.generateScheduleBtn {
+.generateScheduleBtn,
+.addBtn,
+.room-addBtn {
     display: flex;
-    width: 175px;
+    width: 178px;
     padding: 8px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-
+    /* gap: 10px; */
     border-radius: 5px;
     background: var(--accent, #2B8700);
     color: white;
+    font-size: 12px;
+}
+
+.facultyLoad,
+.examVenue {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.facultyLoad-sidebar,
+.examVenue-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    gap: 10px;
+}
+
+.instructor,
+.section,
+.courseCode,
+.classSize,
+.roomForExam {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.inputs-row {
+    display: flex;
+    gap: 10px; /* Adjust the gap between the input containers as needed */
+}
+
+.classSize {
+    margin-bottom: 20px;
+}
+
+/* Media Query for screens less than 768px */
+@media (max-width: 1024px) {
+    /* .header {
+        margin-bottom: 10px;
+    } */
+
+    .examTitleContainer {
+        width: 100%;
+    }
+
+    .examTitle,
+    .examDate {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .dropdown-container {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .dropdown-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .type-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .type,
+    .search-bar {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .generateSchedule,
+    .normalBtn {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        text-align: center;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .generateScheduleBtn {
+        width: 100%;
+    }
+
+    .dataset-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .datasetStatus {
+        width: 100%;
+        gap: 5px;
+    }
+
+    .statusContainer {
+        width: 100%;
+    }
+
+    .totalErrorContainer {
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+    }
+
+    .header h6,
+    .dropdown-input,
+    .datasetStatus-header,
+    .statusTitle,
+    .statusTitle-value,
+    .table thead th {
+        font-size: small;
+    }
+
+    .generateSchedule,
+    .normalBtn,
+    #searchInput,
+    .statusTitle,
+    .statusTitle-value {
+        font-size: x-small;
+    }
 }

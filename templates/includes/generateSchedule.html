@@ -1,0 +1,27 @@
+<div class="dataset-container">
+    <div class="datasetStatus">
+        <span class="datasetStatus-header">Dataset Status:</span>
+        <div class="statusContainer">
+            <span class="statusTitle">Missing Data:</span>
+            <span class="statusTitle-value">0</span>
+        </div>
+        <div class="statusContainer">
+            <span class="statusTitle">Duplicated Data:</span>
+            <span class="statusTitle-value">0</span>
+        </div>
+        <div class="statusContainer">
+            <span class="statusTitle">Not Valid Data:</span>
+            <span class="statusTitle-value">0</span>
+        </div>
+        <div class="totalErrorContainer">
+            <span class="datasetStatus-header">Total Error:</span>
+            <span class="statusTitle-value">0</span>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        {% include 'includes/generateScheduleTable.html' %}
+    </div>
+</div>
+
+<button class="btn btn-sml generateScheduleBtn">Generate Schedule</button>

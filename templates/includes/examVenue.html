@@ -1,0 +1,22 @@
+<div class="examVenue">
+    <div class="examVenue-sidebar">
+        <div class="roomForExam">
+            <span class="datasetStatus-header">Room for Exam</span>
+
+            <div class="dropdown-container">
+                <input type="text" name="room" placeholder="Room" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+            <div class="dropdown-container">
+                <input type="text" name="roomSize" placeholder="Room Size" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+        </div>
+
+        <button class="btn room-addBtn">Add Room</button>
+    </div>
+
+    <div class="table-responsive">
+        {% include 'includes/examVenueTable.html' %}
+    </div>
+</div>

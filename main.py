@@ -1,16 +1,19 @@
 from flask import Flask, request, jsonify, redirect, url_for, render_template, make_response, session, flash
 from flask import make_response
 from flask_bcrypt import Bcrypt
+from loguru import logger
+from datetime import datetime
 import mysql.connector
 import csv
 import io
-# import logging
-from loguru import logger
-from datetime import datetime
 
+# from db folder
+from backend.db.db import dbconfig
+
+# from py folder
 from backend.py.checkMissingData import check_missing_data
 from backend.py.generateExamSched import titleForExam
-from backend.db.db import dbconfig
+
 
 app = Flask(__name__)
 app.secret_key = 'oes'
@@ -33,9 +36,8 @@ def log_event(UserID, action, description):
 @app.route('/')
 def home():
     if 'username' in session:
-        return f"Hello, {session['username']}! You are logged in as {session['role']}."
+        return render_template('index.html')
     return redirect(url_for('login'))
-
 
 # login route
 @app.route('/login', methods=['GET', 'POST'])
@@ -483,6 +485,11 @@ def logout():
         logger.info(f"UserID '{session['UserID']}' logged out.")
     session.clear()
     return redirect(url_for('home'))
+
+# create schedule
+@app.route('/createSchedule')
+def createSchedule():
+    return render_template('createSchedule.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

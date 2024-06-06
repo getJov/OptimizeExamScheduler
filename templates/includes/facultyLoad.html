@@ -1,0 +1,56 @@
+<div class="facultyLoad">
+    <div class="facultyLoad-sidebar">
+        <div class="instructor">
+            <span class="datasetStatus-header">Instructor</span>
+
+            <div class="dropdown-container">
+                <input type="text" name="instructor" placeholder="Instructor" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+            <div class="dropdown-container">
+                <input type="text" name="facultyStatus" placeholder="Faculty Status" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+
+        </div>
+        <div class="section">
+            <span class="datasetStatus-header">Section</span>
+
+            <div class="dropdown-container">
+                <input type="text" name="program" placeholder="Program" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+            <div class="dropdown-container">
+                <input type="text" name="year" placeholder="Year" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+
+            <div class="dropdown-container">
+                <input type="text" name="set" placeholder="Set" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+        </div>
+
+        <div class="courseCode">
+            <span class="datasetStatus-header">Course Code</span>
+            <div class="dropdown-container">
+                <input type="text" name="courseCode" placeholder="Course Code" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+        </div>
+        <div class="classSize">
+            <span class="datasetStatus-header">Class Size</span>
+            <div class="dropdown-container">
+                <input type="text" name="classSize" placeholder="Class Size" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+        </div>
+
+
+        <button class="btn addBtn">Add</button>
+    </div>
+
+    <div class="table-responsive">
+        {% include 'includes/facultyLoadTable.html' %}
+    </div>
+</div>
