@@ -38,10 +38,21 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="/supadregister" class="sidebar-link" data-bs-target="#pages" data-bs-toggle=""
-                        aria-expanded="false"><i class="fa-solid fa-user-plus pe-2"></i>
-                        Add User
+                    <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
+                        aria-expanded="false"><i class="fa-solid fa-file-text pe-2"></i>
+                        Pages
                     </a>
+                    <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/supadregister" class="sidebar-link">Add Users</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/announcements" class="sidebar-link">Announcement</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/create_announcement" class="sidebar-link">Broadcast</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="sidebar-item">
                     <a href="/fecth_logs" class="sidebar-link" data-bs-target="#posts" data-bs-toggle=""
@@ -84,7 +95,7 @@
                                     <a href="/users" class="sidebar-link">Users list</a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">Reset Password</a>
+                                    <a href="#" class="sidebar-link">Block & Reset Password</a>
                                 </li>
                             </ul>
                         </li>

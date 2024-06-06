@@ -29,7 +29,6 @@ def log_event(UserID, action, description):
     # Log event using loguru logger
     logger.info(f"UserID '{UserID}' {action} {description} at {event_time}")
 
-
 #Home route
 @app.route('/')
 def home():
@@ -146,6 +145,55 @@ def register():
                 cursor.close()
 
     return render_template('supadregister.html', error=error, session=session)
+
+
+
+# Route to view all announcements
+@app.route('/announcements')
+def announcements():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+    else:
+        return redirect(url_for('login'))
+
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM announcements ORDER BY created_at DESC')
+    announcements = cursor.fetchall()
+    cursor.close()
+    return render_template('announcementss.html', announcements=announcements)
+
+
+# Route to create a new announcement
+@app.route('/create_announcement', methods=['GET', 'POST'])
+def create_announcement():
+    if 'username' not in session or session.get('role') not in [1, 2]:  # Only superadmin and admin can create announcements
+        return redirect(url_for('login'))
+
+    username = session['username']
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+
+        cursor = mysql.cursor()
+        try:
+            cursor.execute('INSERT INTO announcements (title, content) VALUES (%s, %s)', (title, content))
+            mysql.commit()
+
+            # Log event
+            log_event(session['UserID'], 'created announcement', f'title: {title}')
+            logger.info(f"Announcement '{title}' created successfully.")
+            
+            flash('Announcement created successfully.', 'success')
+            return redirect(url_for('announcement'))
+        except mysql.connector.Error as err:
+            flash(f'Database error: {err}', 'danger')
+        finally:
+            cursor.close()
+
+    return render_template('create_announcement.html', username=username)
+
+
 
 # CRUD: View all users
 @app.route('/users')
