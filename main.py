@@ -190,11 +190,7 @@ def create_announcement():
             
             flash('Announcement created successfully.', 'success')
             return redirect(url_for('announcements'))
-<<<<<<< Updated upstream
         except mysql.connector.error as err:
-=======
-        except mysql.connector.Error as err:
->>>>>>> Stashed changes
             flash(f'Database error: {err}', 'danger')
         finally:
             cursor.close()
