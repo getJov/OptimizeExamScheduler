@@ -187,8 +187,8 @@ def create_announcement():
             logger.info(f"Announcement '{title}' created successfully.")
             
             flash('Announcement created successfully.', 'success')
-            return redirect(url_for('announcement'))
-        except mysql.connector.Error as err:
+            return redirect(url_for('announcements'))
+        except mysql.connector.error as err:
             flash(f'Database error: {err}', 'danger')
         finally:
             cursor.close()
