@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+    <!-- <link rel="stylesheet" href="../static/css/createSchedule3.css"> -->
+    <link rel="stylesheet" href="../static/css/superadmin2.css">
+    <!-- calendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
+    <title>OES | Super Admin</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    {% include 'includes/nav.html' %}
+
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            {% include 'includes/sidebarSuperAdmin.html' %}
+        </div>
+        <div class="admin-content">
+            <div class="adminDashboard-container" id="adminDashboardId">
+               {% include 'includes/superAdminDashboard.html' %}
+            </div>
+            <div class="createSchedule-container" id="createScheduleId">
+                {% include 'includes/superadminLogs2.html' %}
+            </div>
+            <div class="userManagement-container" id="userManagementId">
+                {% include 'includes/adminUsersManagement.html' %}
+            </div>
+            <!-- <div class="announcementControl-container" id="announcementControlId">
+                Announcement Control
+            </div> -->
+            <!-- <div class="makeAnnouncement-container" id="makeAnnouncementId">
+                Make Announcement Only!
+            </div> -->
+        </div>
+    </div>
+</body>
+<script src="/static/js/admin.js"></script>
+</html>

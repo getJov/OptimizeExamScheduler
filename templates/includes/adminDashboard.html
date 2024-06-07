@@ -1,0 +1,54 @@
+<!-- calendar -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
+<link rel="stylesheet" href="/static/css/adminDashboard.css">
+
+<div class="card-body my-1 p-3 rounded dashBorad-container">
+    <div class="d-flex flex-wrap">
+        <div class="table-responsive-supad notification-container flex-fill">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-start fs-5 fw-bold">Timeline</span>
+                </div>
+                <hr class="border-bottom border-1 border-secondary">
+            </div>
+            <div class="list-group">
+                <div class="list-group">
+                    <!-- if there's an announcement display! -->
+                    <!-- display announcement -->
+                    <!-- else display icons -->
+                    <div id="drop-area" class="responsive-container my-3">
+                        <i class="fa-solid fa-calendar pe-2 fa-2xl"></i>
+                        <img src="" alt="" class="responsive-image"> <br><br>
+                        <p class="responsive-text text-secondary" id="drop-area-text">You have no notifications &
+                            Schedule</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-wrapper calendar flex-fill">
+            <div id="calendar">
+                <!-- calendar content -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.js"></script>
+<script src="scripts.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }
+        });
+        calendar.render();
+    });
+    
+    // Remove the event listener and function related to the custom button
+
+</script>

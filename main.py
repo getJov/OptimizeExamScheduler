@@ -35,8 +35,10 @@ def log_event(UserID, action, description):
 #Home route
 @app.route('/')
 def home():
+    
     if 'username' in session:
-        return render_template('index.html')
+        session.clear()
+        return redirect(url_for('logout'))
     return redirect(url_for('login'))
 
 # login route
@@ -377,11 +379,11 @@ def get_csv():
         # Combine the first row into one column and add empty columns to fill up to 7 columns
         first_row = next(reader)
         combined_row = ' '.join(first_row)
-        writer.writerow([combined_row] + [''] * 6)
+        writer.writerow([combined_row] + [''] * 5)
         
         # Write the next rows with a maximum of 7 columns
         for row in reader:
-            writer.writerow(row[:7])
+            writer.writerow(row[:6])
     
     response = make_response(output.getvalue())
     response.headers["Content-Disposition"] = "attachment; filename=data.csv"
@@ -423,11 +425,31 @@ def index():
         return redirect(url_for('login'))
 
 # superadmin
+# @app.route('/superadmin')
+# def superadmin():
+#     if 'username' in session and session['role'] == 1:
+#         username = session['username']
+#         return render_template('superadmin.html', username=username)
+#     else:
+#         return redirect(url_for('login'))
+    
+# superadmin
 @app.route('/superadmin')
-def superadmin():
+def superadmin2():
     if 'username' in session and session['role'] == 1:
         username = session['username']
-        return render_template('superadmin.html', username=username)
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM user')  
+        users = cursor.fetchall()
+        cursor.close()
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM filtered_logs')
+        logs = cursor.fetchall()
+        cursor.close()
+        
+        return render_template('superadmin2.html', users=users, logs=logs,  username=username)
     else:
         return redirect(url_for('login'))
     
@@ -463,7 +485,19 @@ def users():
 def admin():
     if 'username' in session and session['role'] == 2:
         username = session['username']
-        return render_template('admin.html', username=username)
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM user')  
+        users = cursor.fetchall()
+        cursor.close()
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM announcements ORDER BY created_at DESC')
+        announcements = cursor.fetchall()
+        cursor.close()
+
+        return render_template('admin.html', users=users, username=username, session=session, announcements=announcements)
+        # return render_template('admin.html', username=username)
     else:
         return redirect(url_for('login'))
 

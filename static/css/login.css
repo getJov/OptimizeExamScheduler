@@ -105,6 +105,18 @@ body, html {
     }
 }
 
+.alert-msg {
+    padding: 12px 8px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1em;
+}
+
+.login-form {
+    width: 380px;
+    padding: 0 32px;
+}
+
 .input {
     width: 100%;
     padding: 8px;

@@ -15,11 +15,11 @@
             <div class="signin-container">
                 <h6>Sign in</h6>
                 {% if error %}
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-msg" role="alert">
                     {{ error }}
                 </div>
                 {% endif %}
-                <form method="POST" action="{{ url_for('login') }}">
+                <form method="POST" action="{{ url_for('login') }}" class="login-form">
                     <div class="login-identifyProviders">
                         <input type="text" class="input" placeholder="Username" id="username" name="username" required>
                         <input type="password" class="input" placeholder="Password" id="password" name="password" required>

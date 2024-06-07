@@ -1,0 +1,26 @@
+nav {
+    height: 10vh;
+    background-color: blue;
+}
+
+.OESlogo {
+    height: 30px;
+}
+
+.title-full {
+    display: inline;
+}
+
+.title-abbr {
+    display: none;
+}
+
+@media (max-width: 676px) {
+    .title-full {
+        display: none;
+    }
+
+    .title-abbr {
+        display: inline;
+    }
+}

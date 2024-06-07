@@ -1,0 +1,91 @@
+.dashBorad-container {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Flex container for notification and calendar */
+.dashBorad-container .d-flex {
+    display: flex;
+    gap: 20px; /* Space between the two columns */
+}
+
+/* Notification container */
+.notification-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    flex: 1; /* Takes available space equally with calendar */
+}
+
+/* Calendar container */
+.calendar {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    flex: 2; /* Takes more space compared to notification */
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .dashBorad-container .d-flex {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+
+    .notification-container, .calendar {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+/* Optional: Adjust calendar size for smaller screens */
+@media (max-width: 480px) {
+    #calendar {
+        transform: scale(0.8); /* Adjust scale of calendar */
+        transform-origin: top left; /* Ensure it scales from top left corner */
+    }
+}
+
+
+/* Ensures the buttons are green with white text and smaller font size */
+.fc .fc-button {
+    background-color: green !important; /* Button background color */
+    color: white !important; /* Button text color */
+    font-size: 12px !important; /* Button font size */
+    border: none !important; /* Remove default border */
+    margin: 0 2px; /* Add some margin between buttons */
+}
+
+.fc .fc-button:hover {
+    background-color: darkgreen !important; /* Button hover color */
+}
+
+/* Month and year font size */
+.fc .fc-toolbar-title {
+    font-size: 16px !important; /* Month and year size */
+}
+
+/* Calendar labels (weeks) font size */
+.fc .fc-col-header-cell-cushion {
+    color: green;
+    font-size: 12px !important; /* Calendar label font size */
+}
+
+/* General font size for better readability */
+.fc .fc-view-harness {
+    color: green;
+    font-size: 30px !important;
+}
+
+/* Date cells (1-31) */
+.fc-daygrid-day-number {
+    color: green !important; /* Color for dates 1-31 */
+}
+
+/* Today's date */
+.fc-day-today .fc-daygrid-day-number {
+    color: yellowgreen !important; /* Color for today's date */
+}
+
+/* Additional styles for calendar content */
+/* .fc-daygrid-day {
+    font-size: 14px !important; 
+}  */

@@ -1,79 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container-fluid p-5 my-1 rounded createSchedule">
+    <div class="container-fluid header">
+        <h6>Create Schedule</h6>
+        <button class="btn btn-sml" id="uploadCsv">Upload Csv</button>
+    </div>
 
-<head>
-    {% include 'includes/head.html' %}
-    <title>OES | Create Schedule</title>
-    <link rel="stylesheet" href="../static/css/createSchedule3.css">
-</head>
-
-<body>
-    <!-- navbar -->
-    {% include 'includes/nav.html' %}
-
-    <div class="container p-5 my-4 rounded createSchedule">
-        <div class="container-fluid header">
-            <h6>Create Schedule</h6>
-            <button class="btn btn-sml">Upload Csv</button>
-        </div>
-
-        <div class="examTitleContainer">
-            <div class="examTitle">
-                <div class="dropdown-container">
-                    <input type="text" name="academicYear" placeholder="Academic Year" class="dropdown-input">
-                    <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
-                </div>
-                <div class="dropdown-container">
-                    <input type="text" name="semester" placeholder="Semester" class="dropdown-input">
-                    <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
-                </div>
-                <div class="dropdown-container">
-                    <input type="text" name="term" placeholder="Term" class="dropdown-input">
-                    <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
-                </div>
+    <div class="examTitleContainer">
+        <div class="examTitle">
+            <div class="dropdown-container">
+                <input type="text" name="academicYear" placeholder="Academic Year" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
             </div>
-
-            <div class="examDate">
-                <div class="dropdown-container">
-                    <label for="startDate" class="datasetStatus-header">Start Date</label>
-                    <input type="date" name="startDate" placeholder="Start Date" class="dropdown-input no-icon-right">
-                </div>
-                <div class="dropdown-container">
-                    <label for="endtDate" class="datasetStatus-header">End Date</label>
-                    <input type="date" name="endDate" placeholder="End Date" class="dropdown-input no-icon-right">
-                </div>
+            <div class="dropdown-container">
+                <input type="text" name="semester" placeholder="Semester" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
+            </div>
+            <div class="dropdown-container">
+                <input type="text" name="term" placeholder="Term" class="dropdown-input">
+                <span class="dropdown-icon"><img src="../static/images/arrow-down.svg" alt=""></span>
             </div>
         </div>
 
-        <div class="type-container">
-            <div class="type">
-                <button class=" type-btn-selected" id="type-generateScheduleBtn">Generate Schedule</button>
-                <button class=" normalBtn" id="type-facultyLoad">Faculty Load</button>
-                <button class=" normalBtn" id="type-examVenue">Exam Venue</button>
+        <div class="examDate">
+            <div class="dropdown-container">
+                <label for="startDate" class="datasetStatus-header">Start Date</label>
+                <input type="date" name="startDate" placeholder="Start Date" class="dropdown-input no-icon-right">
             </div>
-
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search...">
-                <button onclick="performSearch()" id="searchbtn">
-                    <img src="../static/images/search icon.svg" alt="">
-                </button>
+            <div class="dropdown-container">
+                <label for="endtDate" class="datasetStatus-header">End Date</label>
+                <input type="date" name="endDate" placeholder="End Date" class="dropdown-input no-icon-right">
             </div>
-        </div>
-
-        <div class="facultyLoad-container" id="facultyLoad-container">
-            {% include 'includes/facultyLoad.html' %}
-        </div>
-
-        <div class="examVenue-container" id="examVenue-container">
-            {% include 'includes/examVenue.html' %}
-        </div>
-
-
-        <div class="generateSchedule-container" id="generateSchedule-container">
-            {% include 'includes/generateSchedule.html' %}
         </div>
     </div>
-    <script src="../static/js/createSchedule.js"></script>
-</body>
 
-</html>
+    <div class="type-container">
+        <div class="type">
+            <button class=" type-btn-selected" id="type-generateScheduleBtn">Generate Schedule</button>
+            <button class=" normalBtn" id="type-facultyLoad">Faculty Load</button>
+            <button class=" normalBtn" id="type-examVenue">Exam Venue</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button onclick="performSearch()" id="searchbtn">
+                <img src="../static/images/search icon.svg" alt="">
+            </button>
+        </div>
+    </div>
+
+    <div class="facultyLoad-container" id="facultyLoad-container">
+        {% include 'includes/facultyLoad.html' %}
+    </div>
+
+    <div class="examVenue-container" id="examVenue-container">
+        {% include 'includes/examVenue.html' %}
+    </div>
+
+
+    <div class="generateSchedule-container" id="generateSchedule-container">
+        {% include 'includes/generateSchedule.html' %}
+    </div>
+</div>
+<script src="../static/js/createSchedule.js"></script>
