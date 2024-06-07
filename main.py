@@ -35,8 +35,10 @@ def log_event(UserID, action, description):
 #Home route
 @app.route('/')
 def home():
+    
     if 'username' in session:
-        return render_template('index.html')
+        session.clear()
+        return redirect(url_for('logout'))
     return redirect(url_for('login'))
 
 # login route
@@ -188,7 +190,11 @@ def create_announcement():
             
             flash('Announcement created successfully.', 'success')
             return redirect(url_for('announcements'))
+<<<<<<< Updated upstream
         except mysql.connector.error as err:
+=======
+        except mysql.connector.Error as err:
+>>>>>>> Stashed changes
             flash(f'Database error: {err}', 'danger')
         finally:
             cursor.close()
@@ -431,6 +437,15 @@ def superadmin():
     else:
         return redirect(url_for('login'))
     
+# superadmin
+@app.route('/superadmin2')
+def superadmin2():
+    if 'username' in session and session['role'] == 1:
+        username = session['username']
+        return render_template('superadmin2.html', username=username)
+    else:
+        return redirect(url_for('login'))
+    
 #for superadmin register
 @app.route('/supadregister')
 def supadregister():
@@ -463,7 +478,19 @@ def users():
 def admin():
     if 'username' in session and session['role'] == 2:
         username = session['username']
-        return render_template('admin.html', username=username)
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM user')  
+        users = cursor.fetchall()
+        cursor.close()
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM announcements ORDER BY created_at DESC')
+        announcements = cursor.fetchall()
+        cursor.close()
+
+        return render_template('admin.html', users=users, username=username, session=session, announcements=announcements)
+        # return render_template('admin.html', username=username)
     else:
         return redirect(url_for('login'))
 

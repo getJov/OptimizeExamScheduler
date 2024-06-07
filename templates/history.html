@@ -68,6 +68,12 @@
         </div>
 
         <script>
+            document.querySelector('.btn-print').addEventListener('click', function() {
+                window.print();
+            });
+        </script>
+
+        <script>
             document.addEventListener('DOMContentLoaded', function () {
                 fetch('/get-csv')
                     .then(response => response.text())

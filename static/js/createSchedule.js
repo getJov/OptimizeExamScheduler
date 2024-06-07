@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const facultyLoadBtn = document.getElementById('type-facultyLoad');
     const examVenueBtn = document.getElementById('type-examVenue');
 
+    const uploadCsvBtn = document.getElementById('uploadCsv');
+    const uploadCsvContainer = document.getElementById('uploadCsv-container');
+    const closeOverlayBtn = document.getElementById('closeOverlay');
+
     const generateScheduleContainer = document.getElementById('generateSchedule-container');
     const facultyLoadContainer = document.getElementById('facultyLoad-container');
     const examVenueContainer = document.getElementById('examVenue-container');
@@ -54,6 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
     generateScheduleContainer.style.display = 'block';
     generateScheduleBtn.classList.add('type-btn-selected');
     generateScheduleBtn.classList.remove('normalBtn');
+
+    uploadCsvBtn.addEventListener('click', function () {
+        uploadCsvContainer.style.display = 'flex';
+    });
+
+    closeOverlayBtn.addEventListener('click', function () {
+        uploadCsvContainer.style.display = 'none'; // Hide the overlay
+    });
+    
+    uploadCsvContainer.addEventListener('click', function (event) {
+        if (event.target === uploadCsvContainer) {
+            uploadCsvContainer.style.display = 'none'; // Hide the overlay
+        }
+    });
 });
 
 

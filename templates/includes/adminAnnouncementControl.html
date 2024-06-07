@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/static/css/adminAnnouncementControl.css">
+<div class="container-fluid p-5 my-1 rounded announcementControl-con">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-start fs-5 fw-bold">Announcements</h2>
+        <button class="btn addNewUserBtn" id="makeNewAnnouncement">Make Announcement</button>
+    </div>
+    <div class="table-responsive">
+        <!-- announcement content -->
+        <div class="list-group">
+            {% for announcement in announcements %}
+            <div class="list-group-item">
+                <h6>{{ announcement.title }}</h6>
+                <p>{{ announcement.content }}</p>
+                <small><strong>Posted on:</strong> {{ announcement.created_at }}</small>
+            </div>
+            <!-- Delete button for each announcement -->
+
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
