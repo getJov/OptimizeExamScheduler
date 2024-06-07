@@ -1,0 +1,35 @@
+<!-- sidebarAdmin.html -->
+<link rel="stylesheet" type="text/css" href="../static/css/sidebar.css">
+
+<div class="sidebar">
+    <button class="btn" id="sidebar-btn">
+        <p>Faculty</p>
+        <img src="./static/images/arrow-right.svg" alt="" id="arrow-right">
+        <img src="./static/images/arrow-left.svg" alt="" id="arrow-left">
+    </button>
+</div>
+
+<section class="sidebar-history" id="sidebar-history" style="display: none;">
+    <aside id="sidebar" class="js-sidebar">
+        <div class="h-100">
+            <button class="holder holder-selected" id="adminDashboardBtnId">
+                <i class="fa-solid fa-list pe-2"></i>
+                Dashboard
+            </button>
+            <button class="holder" id="userManagementBtnId">
+                <i class="fa-solid fa-user pe-2"></i>
+                User Information
+            </button>
+            <button class="holder" id="announcementControlBtnId">
+                <i class="fa-solid fa-bullhorn pe-2"></i>
+                Announcement 
+            </button>
+            <!-- <button class="holder" id="makeAnnouncementBtnId">
+                <i class="fa-solid fa-tower-broadcast pe-2"></i>
+                Make Announcement
+            </button> -->
+        </div>
+    </aside>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>

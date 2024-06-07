@@ -1,132 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Super Admin - Optimize Exam Scheduler</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/historycopyforsuperadmin.css">
-    <link rel="stylesheet" href="./static/css/stylescopyforsuperadmin.css">
-    <link rel="icon" type="image/svg" href="./static/images/OES ICON.svg">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- calendar -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.css">
+    {% include 'includes/head.html' %}
+    <title>OES | Faculty</title>
+    <link rel="stylesheet" href="../static/css/createSchedule3.css">
 
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <!-- navbar -->
-    {% include 'includes/facultynavwithmessage.html' %}
+    {% include 'includes/nav.html' %}
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="content" style="background-color: #F2F3F7;">
-
-            <div class="sidebar-container">
-                {% include 'includes/facultysidebar.html' %}
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            {% include 'includes/sidebarFaculty.html' %}
+        </div>
+        <div class="admin-content ">
+            <div class="adminDashboard-container" id="adminDashboardId">
+                {% include 'includes/adminDashboard.html' %}
             </div>
-
-            <!-- Table -->
-            <div class="table-containers container-fluid px-5 py-4 mb-4">
-                <header class="container-fluid fs-2 fw-bold mb-4">
-                    Dashboard
-                </header>
-                <div class="table-container container-fluid">
-                    <div class="container-fluid">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-12">
-                                <div class="card-body mb-5">
-                                    <div class="container-fluid mt-5">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <span class="text-start fs-5 fw-bold">Timeline</span>
-                                        </div>
-                                        <hr class="border-bottom border-1 border-secondary">
-
-                                        <div class="table-responsive-supad">
-                                            <div class="list-group">
-                                                <!-- if there's an announcement display! -->
-                                                <!-- display announcement -->
-                                                <!-- else display icons -->
-                                                <div id="drop-area" class="responsive-container mt-3 mb-3">
-                                                    <i class="fa-solid fa-calendar pe-2 fa-2xl"></i>
-                                                    <img src="" alt="" class="responsive-image"> <br><br>
-                                                    <p class="responsive-text" id="drop-area-text text-secondary">You
-                                                        have no notifications & Schedule</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="chat-wrapper">
-                                        <div id="calendar">
-                                            <!-- calendar content -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="userManagement-container" id="userManagementId">
+                {% include 'includes/facultyUsersManagement.html' %}
+            </div>
+            <div class="announcementControl-container" id="announcementControlId">
+                {% include 'includes/facultyAnnouncementControl.html' %}
+            </div>
+            <div class="makeAnnouncement-container" id="makeAnnouncementId">
+                Make Announcement Only!
             </div>
         </div>
     </div>
 
-    <!-- Offcanvas sidebar for sending messages -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="sendMessageOffcanvas"
-        aria-labelledby="sendMessageOffcanvasLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="sendMessageOffcanvasLabel">Send Message</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <hr class="border-bottom border border-secondary">
-        <div class="offcanvas-body">
-            <form>
-                <div class="mb-3">
-                    <label for="recipient" class="form-label">Recipient:</label>
-                    <input type="text" class="form-control" id="recipient" placeholder="Enter recipient">
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Message:</label>
-                    <textarea class="form-control" id="message" rows="10"></textarea>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-end">
-                        <div class="col-auto">
-                            <button type="submit" class="btn text-white" id="addnewuser">Send</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
+    <div class="uploadCsv-container" id="uploadCsv-container">
+        {% include 'includes/uploadCsv.html' %}
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8S3gVXEjIo607E2FfewJw4tkP2ciKE6hFfFkZ"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.7.0/main.js"></script>
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const calendarEl = document.getElementById('calendar')
-            const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    left: 'dayGridMonth,timeGridWeek,timeGridDay',
-                    center: 'title',
-                }
-            })
-
-            calendar.render()
-        })
-
-    </script>
 </body>
 
+<!-- JavaScript and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-+3ASp6Gp+DbF6uyt2EyI2L4JgDGy9Rz0R5Vo29r2+iPcBql6NyO2bRS5xy0x37+I" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-b4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk+pc0PbXJcbvqD5gVznprE2a3bIZ6MiXTE" crossorigin="anonymous"></script>
+<script src="/static/js/admin.js"></script>
 </html>

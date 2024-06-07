@@ -506,7 +506,20 @@ def admin():
 def faculty():
     if 'username' in session and session['role'] == 3:
         username = session['username']
-        return render_template('faculty.html', username=username)
+
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT UserID, Username, Email, firstName, lastName FROM user WHERE UserId = 68')  
+        users = cursor.fetchall()
+        cursor.close()
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM announcements ORDER BY created_at DESC')
+        announcements = cursor.fetchall()
+        cursor.close()
+
+        return render_template('faculty.html', users=users, username=username, session=session, announcements=announcements)
+        # return render_template('admin.html', username=username)
+
     else:
         return redirect(url_for('login'))
 
